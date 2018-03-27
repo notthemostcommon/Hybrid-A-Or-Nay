@@ -1,14 +1,36 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import HomeScreen from './components/HomeScreen'; 
+import { Router, Switch, Route, Link } from './Routing'; 
+import SearchList from './components/SearchList'; 
+import ShowLocation from './components/ShowLocation'; 
+import Search from './components/Search'; 
+
+ 
+
+const HomeComponent = () => (
+  <HomeScreen />
+)
+const ResultsComponent = () => {
+  <SearchList />
+}
+const LocationComponent = () => {
+  <ShowLocation />
+}
+
 
 
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.app}>
-        <HomeScreen /> 
-      </View>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={HomeComponent} />
+          <Route path="/results" component={ResultsComponent} />
+          <Route path="/location" component={LocationComponent} />
+        </Switch>
+      </Router>
+     
     )
   }
 }
