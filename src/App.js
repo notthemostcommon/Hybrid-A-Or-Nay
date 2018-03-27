@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import HomeScreen from './components/HomeScreen'; 
 
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.app}>
-        <View style={styles.appHeader}>
-          <Text style={styles.appTitle}>Welcome to React ⚛️</Text>
-        <Text style={styles.appIntro}>
-          Hello Tisha!!!!
-        </Text>
-        </View>
+        <HomeScreen /> 
       </View>
     )
   }
