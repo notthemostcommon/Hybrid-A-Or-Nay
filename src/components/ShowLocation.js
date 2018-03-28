@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Modal, Text, TouchableHighlight, View, StyleSheet, Image, Animated, Easing, TouchableOpacity} from 'react-native';
+import {Modal, Text, TouchableHighlight, View, StyleSheet, Image, Animated, Easing, TouchableOpacity, Button} from 'react-native';
 import Header from './Header'; 
 import Reviews from './Reviews'; 
 import axios from 'axios'; 
+import ReviewForm from './ReviewForm'; 
 
 
 class ShowLocation extends Component {
@@ -13,18 +14,24 @@ class ShowLocation extends Component {
         modalVisible: false,
         selected: false,
         reviews: '', 
+        startReview: false, 
     };
+    this.startReview = this.startReview.bind(this); 
   }
 
   componentDidMount() {
-      axios.get('http://localhost:8080/reviews')
+      axios.get('/reviews')
       .then( data => 
         this.setState({
             reviews: data
         }))
   }
 
-
+  startReview(){
+      this.setState(prevState => ({
+          startReview: !prevState.startReview, 
+      }))
+  }
   
 
   render() {
@@ -34,7 +41,7 @@ class ShowLocation extends Component {
 
     return (
       <View style={{marginTop: 22}}>
-      <Header/>
+        <Header/>
         <Modal
             presentationStyle="fullScreen"
             animationType="slide"
@@ -59,7 +66,17 @@ class ShowLocation extends Component {
             </View>
           </View>
 
-          {this.state.reviews ? <Reviews reviews={this.state.reviews}/> : <Text>Be the First to Review "${this.state.dba}"</Text>}
+          {this.state.startReview ? <ReviewForm data={this.props.data} startReview={this.startReview} /> : null }
+
+          {this.state.reviews ? <Reviews reviews={this.state.reviews}/> : 
+            <Text>Be the First to Review {this.state.dba}. 
+                <TouchableHighlight
+                    onPress={this.startReview}
+                    >
+                    <Text>Start One Now!</Text>
+                    </TouchableHighlight>
+                </Text>}
+
         </Modal>
       </View>
     );
@@ -70,11 +87,20 @@ export default ShowLocation;
 
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        backgroundColor: '#F%FCFF', 
+        padding: 10, 
+        
+    },
     grade: {
       flex: 1,
       justifyContent: 'flex-end', 
       fontSize: 25, 
       color: "green", 
-      fontWeight: "bold"
+      fontWeight: "bold", 
+      padding: 5
     }
 }); 
