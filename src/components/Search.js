@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  View, Text, StyleSheet, KeyboardAwareScrollView, TextInput, FlatList, List, ListItem, TouchableOpacity } from 'react-native';
+import {  View, Text, StyleSheet, KeyboardAwareScrollView, TextInput, FlatList, List, ListItem, ListView, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import SearchList from './SearchList';
 import Indicator from './ActivityIndicator'; 
 import _ from 'underscore'; 
@@ -16,7 +16,9 @@ export default class Search extends Component {
         this.state = {
             text: '', 
             results: '', 
-            loading: false
+            loading: false,
+            modalVisible: false,
+
            
         }
         this.submitSearch = this.submitSearch.bind(this);
@@ -40,25 +42,31 @@ export default class Search extends Component {
             loading: false, 
           })
           console.log(this.state.results);
+          this.textInput.clear()
           
-        //   _.uniq(this.state.results, false, (location => {
-        //     return location.camis
-        //   })).length > 1 ?
-
-        //   <Route path='/results' render={routeProps => <SearchList {...routeProps} title={this.state.results}/>} />
-        //     :
-        //     <Route 
-        //     path="/location" 
-        //     component={() =>  <ShowLocation {...this.state.results} />}
-        //      /> 
-          
+        
         })
         .catch(err => {
           console.log(err) 
         })
       }
-      
-      
+      onPress = (item) => {
+        this.setState(
+            {
+                modalVisible: true, 
+                selected: item
+            });
+            console.log('====================================');
+            console.log("this is selected item", this.state.selected);
+            console.log('====================================');
+
+      }
+      setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+        console.log('====================================');
+        console.log("this is modal visible", this.state.modalVisible);
+        console.log('====================================');
+      }
       
       
   render() {
@@ -86,31 +94,41 @@ export default class Search extends Component {
             // onChange={this.setSearchText}
             clearButtonMode="while-editing" 
             onSubmitEditing={this.submitSearch}
+            ref={input => { this.textInput = input }} 
             // autoGrow={true}
           
             />
+            { this.state.modalVisible ?
+            <ShowLocation
+                modalVisible={ this.state.modalVisible }
+                setModalVisible={ (vis) => { this.setModalVisible(vis) }}
+                data={ this.state.selected }
+            /> : null }
+
             {/* {this.state.results ? <SearchList navigation={this.props.navigation} results={this.state.results}/> : <Text></Text>} */}
             { /*this.state.results ? <SearchList title={this.state.results}/> : <Text> State Isn't Set </Text> */}
             {this.state.results ?
-            <View>
-              <List> 
-                <FlatList
-                  
-                  data={this.state.results}
-                  renderItem={({ item }) => (
-                      <ListItem
-                          onPress={this._onPress}
-                          title={item.dba}
-                  />
-                  
-                  )}
-              />
-        </List>
-        </View>
+            <View> 
+                { _.uniq(this.state.results, false, (location => {
+              return location.camis
+            })).map((item, i) => {
+                    
+                    return (
+                        <TouchableOpacity onPress={() => this.onPress(item)} style={styles.list} key={item.camis}>
+                        <Text style={styles.h1}> {item.dba} </Text>
+                            <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
+                            </TouchableOpacity> 
+                    )}
+                )}
+                </View>
+
 
             
             
             : <Text>There's Nothing Here</Text> }
+
+            
+                    
 
 
         </View>    
@@ -127,5 +145,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10
+  }, 
+  list: {
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    borderBottomColor: '#bbb',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  }, 
+  h1: {
+    fontSize: 19,
+    fontWeight: 'bold',
+  },
+  h3: {
+      fontSize: 15, 
   }
+      
+  
 }); 
