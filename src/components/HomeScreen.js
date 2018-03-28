@@ -23,19 +23,21 @@ class HomeScreen extends Component {
         
            <View> 
                <Header />
-  
-              <Text style={styles.text}> Discover Your Favorite Restaurants</Text>
-              <Search />
-                <ImageBackground 
-                  source={Background}
-                  resizeMode={'cover'}
-                  style={styles.logo}>
+               <Search />
+            
+                    <ImageBackground 
+                        source={Background}
+                        resizeMode={'cover'}
+                        style={styles.logo}>
 
-                <Image 
-                  style={{width: '50%', height: '50%'}}
-                  source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>              
-                <Text style={styles.italics} > And What You Never Wanted to Know</Text>
-              </ImageBackground>
+                        <Text style={styles.text}> Discover Your Favorite Restaurants</Text>
+                
+                    <Image 
+                    style={{width: '50%', height: '50%'}}
+                    source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>              
+                    <Text style={styles.italics} > And What You Never Wanted to Know</Text>
+                </ImageBackground>
+               
               </View>
            
       

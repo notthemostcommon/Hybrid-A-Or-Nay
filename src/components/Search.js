@@ -87,7 +87,8 @@ export default class Search extends Component {
             // name="search"
             autoFocus={true}
             // cancelButtonTitle="Cancel"
-            placeholder='Search'
+            style={styles.search}
+            placeholder='Search (Eateries, Bars, Coffee Shops ...)'
             returnKeyType='search'
             // value={this.state.searchText}
             onChangeText={(text) => this.setState({text})}
@@ -125,7 +126,7 @@ export default class Search extends Component {
 
             
             
-            : <Text>There's Nothing Here</Text> }
+            : null }
 
             
                     
@@ -158,6 +159,20 @@ const styles = StyleSheet.create({
   },
   h3: {
       fontSize: 15, 
+  }, 
+  search: {
+      flex: 1, 
+      padding: 10, 
+      height: 50,
+      marginTop: 10,
+      padding: 4,
+      fontSize: 18,
+      borderWidth: 1,
+      borderColor: '#48bbec', 
+      width: '75%',
+      alignSelf: 'center', 
+      margin: 10, 
+
   }
       
   

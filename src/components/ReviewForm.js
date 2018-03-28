@@ -67,22 +67,25 @@ class ReviewForm extends Component {
               autoFocus={true}
               autoCapitalize='none'>
             </TextInput>
-            <Text>Rating</Text>
-            <Picker
-                selectedValue={this.state.rating}
-                onValueChange={(itemValue, itemIndex) => this.setState({rating: itemValue})}>
-                <Picker.Item label="1" value= "1" />
-                <Picker.Item label="2" value="2"  />
-                <Picker.Item label="3" value= "3" />
-                <Picker.Item label="4" value= "4" />
-                <Picker.Item label="5" value= "5" />
-                                
-                </Picker>
-                <Text>5 = Killing It! 1 = Should Have Been Killed</Text>
+            <View style={styles.ratings}>
+                <Text style={styles.h3} >Rating</Text>
+                <Picker
+                    selectedValue={this.state.rating}
+                    onValueChange={(itemValue, itemIndex) => this.setState({rating: itemValue})}
+                    style={{margin: 5}}>
+                    <Picker.Item label="1" value= "1" />
+                    <Picker.Item label="2" value="2"  />
+                    <Picker.Item label="3" value= "3" />
+                    <Picker.Item label="4" value= "4" />
+                    <Picker.Item label="5" value= "5" />
+                                    
+                    </Picker>
+                    </View>
+                <Text>5 = Killing It! </Text>
+                <Text>1 = Should Have Been Killed</Text>
             
             <Button
-                onPress={this.onLoginPressed.bind(this)}  s
-                tyle={styles.button}
+                onPress={this.onLoginPressed.bind(this)}  style={styles.button}
                 title="Submit" />
                 
 
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
         paddingTop: 80
     },
     input: {
-        height: 50,
+        height: 100,
         marginTop: 10,
         padding: 4,
         fontSize: 18,
@@ -113,5 +116,20 @@ const styles = StyleSheet.create({
     }, 
     heading: {
         fontSize: 30,
-      }
+      },
+    h1: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    },
+    h3: {
+        fontSize: 15, 
+        padding: 5, 
+        margin: 5, 
+    }, 
+    button: {
+        marginTop: 20, 
+    }, 
+    ratings: {
+        flexDirection: 'row', 
+    }
 }); 

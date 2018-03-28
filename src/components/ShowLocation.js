@@ -40,42 +40,48 @@ class ShowLocation extends Component {
     const { fill, size } = this.props
 
     return (
-      <View style={{marginTop: 22}}>
+      <View style={styles.container}>
         <Header/>
+        
         <Modal
+        
             presentationStyle="fullScreen"
             animationType="slide"
             transparent={false}
             visible={this.props.modalVisible}
-            onRequestClose={() => {
-                alert('Modal has been closed.');
-            }}>
-          <View style={{marginTop: 22}}>
-            <View>
-              <Text>{this.props.data.dba}</Text>
-              <Text style={styles.grade}>{this.props.data.grade}</Text>
-              <Text>{`${this.props.data.building} ${this.props.data.street} ${this.props.data.boro} ${this.props.data.zipcode}`}</Text>
-
-
-              <TouchableHighlight
+            style={styles.container}
+           >
+           <TouchableHighlight
                 onPress={() => {
                   this.props.setModalVisible(!this.props.modalVisible);
                 }}>
-                <Text>Hide Modal</Text>
+                <Text style={styles.exit}>X</Text>
               </TouchableHighlight>
+          <View style={{marginTop: 22}}>
+            <View>
+              <Text style={styles.h1}>{this.props.data.dba}</Text>
+              <Text style={styles.grade}>{this.props.data.grade}</Text>
+              <Text style={styles.h3}>{`${this.props.data.building} ${this.props.data.street} ${this.props.data.boro} ${this.props.data.zipcode}`}</Text>
+
+
+              
             </View>
           </View>
 
           {this.state.startReview ? <ReviewForm data={this.props.data} startReview={this.startReview} /> : null }
 
           {this.state.reviews ? <Reviews reviews={this.state.reviews}/> : 
-            <Text>Be the First to Review {this.state.dba}. 
+          this.state.startReview ? null :
+          <View> 
+            <Text>Be the First to Review {this.state.dba} </Text>
                 <TouchableHighlight
                     onPress={this.startReview}
+                    
                     >
-                    <Text>Start One Now!</Text>
-                    </TouchableHighlight>
-                </Text>}
+                    <Text style={{color: 'blue'}}>Start One Now!</Text>
+                </TouchableHighlight>
+             </View>
+                }
 
         </Modal>
       </View>
@@ -91,9 +97,12 @@ const styles = StyleSheet.create({
         flex: 1, 
         justifyContent: 'center', 
         alignItems: 'center', 
-        backgroundColor: '#F%FCFF', 
+        backgroundColor: '#F5FCFF', 
         padding: 10, 
-        
+        textAlign: 'center', 
+        marginTop: 22, 
+        width: '100%', 
+
     },
     grade: {
       flex: 1,
@@ -101,6 +110,26 @@ const styles = StyleSheet.create({
       fontSize: 25, 
       color: "green", 
       fontWeight: "bold", 
-      padding: 5
-    }
+      padding: 5, 
+      alignSelf: 'center'
+    }, 
+    exit: {
+        flex: 1, 
+        flexDirection: 'row',
+        alignSelf: 'flex-end', 
+        backgroundColor: 'red', 
+        marginTop: -5, 
+        color: 'white', 
+        borderColor: '#8B0000', 
+      
+        padding: 5, 
+        fontWeight: 'bold'
+    }, 
+    h1: {
+        fontSize: 19,
+        fontWeight: 'bold',
+      },
+    h3: {
+        fontSize: 15, 
+    }, 
 }); 
