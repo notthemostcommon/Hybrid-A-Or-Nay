@@ -67,22 +67,22 @@ class ReviewForm extends Component {
               autoFocus={true}
               autoCapitalize='none'>
             </TextInput>
-            <View style={styles.ratings}>
                 <Text style={styles.h3} >Rating</Text>
                 <Picker
+                    style={{height: 50, width: 50, margin: 25}}
                     selectedValue={this.state.rating}
                     onValueChange={(itemValue, itemIndex) => this.setState({rating: itemValue})}
-                    style={{margin: 5}}>
-                    <Picker.Item label="1" value= "1" />
-                    <Picker.Item label="2" value="2"  />
-                    <Picker.Item label="3" value= "3" />
-                    <Picker.Item label="4" value= "4" />
+                    >
                     <Picker.Item label="5" value= "5" />
+                    <Picker.Item label="4" value="4"  />
+                    <Picker.Item label="3" value= "3" />
+                    <Picker.Item label="2" value= "2" />
+                    <Picker.Item label="1" value= "1" />
                                     
                     </Picker>
-                    </View>
-                <Text>5 = Killing It! </Text>
-                <Text>1 = Should Have Been Killed</Text>
+                
+                {/* <Text>5 = Killing It! </Text>
+                <Text>1 = Should Have Been Killed</Text> */}
             
             <Button
                 onPress={this.onLoginPressed.bind(this)}  style={styles.button}
@@ -127,9 +127,8 @@ const styles = StyleSheet.create({
         margin: 5, 
     }, 
     button: {
-        marginTop: 20, 
+        margin: 50, 
+
     }, 
-    ratings: {
-        flexDirection: 'row', 
-    }
+    
 }); 

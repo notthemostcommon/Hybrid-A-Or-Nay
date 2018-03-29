@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         backgroundColor: '#F5FCFF', 
         padding: 10, 
-        textAlign: 'center', 
         marginTop: 22, 
         width: '100%', 
 
@@ -118,10 +117,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignSelf: 'flex-end', 
         backgroundColor: 'red', 
-        marginTop: -5, 
+        marginTop: 50, 
         color: 'white', 
         borderColor: '#8B0000', 
-      
+        width: 20, 
+        height: 20, 
         padding: 5, 
         fontWeight: 'bold'
     }, 

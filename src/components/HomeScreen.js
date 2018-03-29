@@ -23,18 +23,21 @@ class HomeScreen extends Component {
         
            <View> 
                <Header />
-               <Search />
-            
-                    <ImageBackground 
+               
+                     <ImageBackground 
                         source={Background}
                         resizeMode={'cover'}
-                        style={styles.logo}>
+                        style={{width: '100%'}}
 
+                        >
                         <Text style={styles.text}> Discover Your Favorite Restaurants</Text>
-                
-                    <Image 
-                    style={{width: '50%', height: '50%'}}
-                    source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>              
+                        <Image 
+                          style={styles.icon}
+                          source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>   
+                            
+                        <Search />  
+                          
+                              
                     <Text style={styles.italics} > And What You Never Wanted to Know</Text>
                 </ImageBackground>
                
@@ -54,15 +57,20 @@ class HomeScreen extends Component {
         // alignItems: 'center',
         backgroundColor: 'white',
         // padding: 10,
-        paddingTop: 10
+        paddingTop: 10, 
+        zIndex: -1, 
       },
       icon: {
-        // flex: 1, 
-        justifyContent: 'flex-start',
+        // flex: 2, 
+        justifyContent: 'center',
+        alignSelf: 'center', 
         // height: '100%', 
-        width: '100%', 
+        width: '30%', 
+        height: '30%', 
         padding: 10,  
-        paddingTop: -10, 
+        // paddingTop: -10, 
+        // marginTop: 150,
+        zIndex: 10
         // backgroundColor: '#4682B4'
       },
       search: {
@@ -73,10 +81,10 @@ class HomeScreen extends Component {
         justifyContent: 'flex-end'
       },
         logo: {
-          // flex: 1, 
-          justifyContent: 'center', 
+          flex: 1, 
+          justifyContent: 'flex-start', 
           alignItems: 'center', 
-          zIndex: 2,
+          zIndex: 0,
       },
         text: {
           fontSize: 20,

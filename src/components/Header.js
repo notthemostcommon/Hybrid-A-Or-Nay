@@ -5,7 +5,7 @@ class Header extends Component {
     render() {
         return (
 
-            <View style={{paddingTop: 20, paddingBottom: 20, backgroundColor:'white'}}>
+            <View style={{margin: 50, paddingTop: 40, paddingBottom: 40, backgroundColor:'white'}}>
                 <View style={{flexDirection: 'row', alignItems:'center'}}>
                 <Text style={{ flex: 1 }}></Text>
                 <Text style={{ flex: 1, textAlign: 'center'}}></Text>

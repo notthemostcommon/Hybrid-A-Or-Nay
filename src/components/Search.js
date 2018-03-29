@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {  View, Text, StyleSheet, KeyboardAwareScrollView, TextInput, FlatList, List, ListItem, ListView, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
-import SearchList from './SearchList';
 import Indicator from './ActivityIndicator'; 
 import _ from 'underscore'; 
 import { Route } from '../Routing'; 
@@ -56,48 +55,30 @@ export default class Search extends Component {
                 modalVisible: true, 
                 selected: item
             });
-            console.log('====================================');
-            console.log("this is selected item", this.state.selected);
-            console.log('====================================');
-
       }
       setModalVisible(visible) {
         this.setState({modalVisible: visible});
-        console.log('====================================');
-        console.log("this is modal visible", this.state.modalVisible);
-        console.log('====================================');
+        
       }
       
       
   render() {
-    // const {navigate} = this.props.navigation
-    // const arrayResults = _.toArray(this.state.results); 
-   
+    
     return (
-
-        
         <View> 
 
-      
         {this.state.loading ? <Indicator/> : null}
 
-       
         <TextInput
-            // showLoading
-            // name="search"
             autoFocus={true}
-            // cancelButtonTitle="Cancel"
-            style={styles.search}
+            style={{width: '75%', alignSelf: 'center', height: 30, borderColor: '#48bbec', borderWidth: 1
+          }}
             placeholder='Search (Eateries, Bars, Coffee Shops ...)'
             returnKeyType='search'
-            // value={this.state.searchText}
             onChangeText={(text) => this.setState({text})}
-            // onChange={this.setSearchText}
             clearButtonMode="while-editing" 
             onSubmitEditing={this.submitSearch}
-            ref={input => { this.textInput = input }} 
-            // autoGrow={true}
-          
+            ref={input => { this.textInput = input }}           
             />
             { this.state.modalVisible ?
             <ShowLocation
@@ -106,8 +87,6 @@ export default class Search extends Component {
                 data={ this.state.selected }
             /> : null }
 
-            {/* {this.state.results ? <SearchList navigation={this.props.navigation} results={this.state.results}/> : <Text></Text>} */}
-            { /*this.state.results ? <SearchList title={this.state.results}/> : <Text> State Isn't Set </Text> */}
             {this.state.results ?
             <View> 
                 { _.uniq(this.state.results, false, (location => {
@@ -163,15 +142,15 @@ const styles = StyleSheet.create({
   search: {
       flex: 1, 
       padding: 10, 
-      height: 50,
+      height: 30,
       marginTop: 10,
-      padding: 4,
-      fontSize: 18,
+      // fontSize: 18,
       borderWidth: 1,
       borderColor: '#48bbec', 
       width: '75%',
       alignSelf: 'center', 
-      margin: 10, 
+      margin: 25, 
+      color: 'black'
 
   }
       
