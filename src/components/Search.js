@@ -6,6 +6,7 @@ import { Route } from '../Routing';
 // import { Header } from 'react-native-elements'; 
 // import { withNavigation } from 'react-navigation';
 import ShowLocation from './ShowLocation'; 
+import Results from './Results'; 
 // import { Header } from 'native-base'; 
 
 
@@ -14,9 +15,9 @@ export default class Search extends Component {
         super()
         this.state = {
             text: '', 
-            results: '', 
+            // results: '', 
             loading: false,
-            modalVisible: false,
+            // modalVisible: false,
 
            
         }
@@ -36,12 +37,21 @@ export default class Search extends Component {
           // let uniqData =_.uniq(this.state.results, false, (location => {
           //       return location.camis
           //     })); 
-          this.setState({
-            results: data, 
-            loading: false, 
-          })
-          console.log(this.state.results);
+          // this.setState({
+          //   results: data, 
+          //   loading: false, 
+          this.props.getResults(data); 
+          // })
+          
           this.textInput.clear()
+          //   _.uniq(this.state.results, false, (location => {
+          //   return location.camis
+          // })).length > 1 ? 
+          // <Route path={"/results"} data={this.state.results} /> : 
+          // <Route path={"/location"} data={this.state.results} />
+
+          
+                  
           
         
         })
@@ -49,17 +59,17 @@ export default class Search extends Component {
           console.log(err) 
         })
       }
-      onPress = (item) => {
-        this.setState(
-            {
-                modalVisible: true, 
-                selected: item
-            });
-      }
-      setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+      // onPress = (item) => {
+      //   this.setState(
+      //       {
+      //           modalVisible: true, 
+      //           selected: item
+      //       });
+      // }
+      // setModalVisible(visible) {
+      //   this.setState({modalVisible: visible});
         
-      }
+      // }
       
       
   render() {
@@ -67,11 +77,11 @@ export default class Search extends Component {
     return (
         <View> 
 
-        {this.state.loading ? <Indicator/> : null}
+        {this.state.loading && <Indicator/>}
 
         <TextInput
             autoFocus={true}
-            style={{width: '75%', alignSelf: 'center', height: 30, borderColor: '#48bbec', borderWidth: 1
+            style={{width: '100%', alignSelf: 'center', height: 30, borderColor: '#48bbec', borderWidth: 1
           }}
             placeholder='Search (Eateries, Bars, Coffee Shops ...)'
             returnKeyType='search'
@@ -80,7 +90,7 @@ export default class Search extends Component {
             onSubmitEditing={this.submitSearch}
             ref={input => { this.textInput = input }}           
             />
-            { this.state.modalVisible ?
+            {/* { this.state.modalVisible ?
             <ShowLocation
                 modalVisible={ this.state.modalVisible }
                 setModalVisible={ (vis) => { this.setModalVisible(vis) }}
@@ -109,7 +119,7 @@ export default class Search extends Component {
 
             
                     
-
+ */}
 
         </View>    
         );
@@ -147,10 +157,11 @@ const styles = StyleSheet.create({
       // fontSize: 18,
       borderWidth: 1,
       borderColor: '#48bbec', 
-      width: '75%',
+      // width: '75%',
       alignSelf: 'center', 
       margin: 25, 
-      color: 'black'
+      color: 'black', 
+      backgroundColor: 'white',
 
   }
       

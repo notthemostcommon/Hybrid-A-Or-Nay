@@ -22,9 +22,12 @@ class ShowLocation extends Component {
   componentDidMount() {
       axios.get('/reviews')
       .then( data => 
+        
         this.setState({
             reviews: data
         }))
+        console.log("data", this.state.reviews)
+
   }
 
   startReview(){

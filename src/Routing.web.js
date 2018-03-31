@@ -2,5 +2,7 @@
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, 
+    withRouter, 
+    Redirect
   } from 'react-router-dom'

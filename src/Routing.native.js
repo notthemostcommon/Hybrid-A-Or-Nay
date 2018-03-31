@@ -3,5 +3,7 @@ export {
     NativeRouter as Router, // Rename 
     Switch,
     Route,
-    Link
+    Link,
+    withRouter, 
+    Redirect
   } from 'react-router-native'
