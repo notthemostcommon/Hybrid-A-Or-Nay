@@ -36,11 +36,12 @@ class Results extends Component {
                           state: { results: results }
                         }
                         } >
+                        <View>
                         {/* <TouchableOpacity onPress={() => this.onPress(item)} style={styles.list} key={item.camis}> */}
                         <Text style={styles.h1}> {item.dba} </Text>
                         <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
                       {/* </TouchableOpacity>  */}
-                     
+                      </View>
                      </ Link> 
                      </View>
                   )}

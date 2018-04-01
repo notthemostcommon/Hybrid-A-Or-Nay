@@ -9,18 +9,18 @@ import Results from './components/Results';
 // import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 // import faStar from '@fortawesome/fontawesome-free-solid/faStar'; 
 // import faStar from '@fortawesome/fontawesome-free-regular/faStar'; 
-import solid from '@fortawesome/fontawesome-free-solid'; 
-import regular from '@fortawesome/fontawesome-free-regular'; 
+import Solid from '@fortawesome/fontawesome-free-solid'; 
+import Regular from '@fortawesome/fontawesome-free-regular'; 
 
 
-import fontawesome from '@fortawesome/fontawesome'; 
+import Fontawesome from '@fortawesome/fontawesome'; 
 
 
 // import '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css';
 
  
 
-fontawesome.library.add(solid, regular)
+Fontawesome.library.add(Solid, Regular)
 
 
 const HomeComponent = () => {

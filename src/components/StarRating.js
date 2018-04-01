@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight} from 'react-native';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import starValues from './starValues'; 
+import starValues from './StarValues'; 
 
 // need 5 stars 
 // each star will be regular outline and touchable
@@ -19,65 +19,44 @@ export default class StarRating extends Component {
     
     this.state = {
         blankStars: 5, 
-        starRating: {starValues:0}, 
+        starRating: 4, 
 
         }
     }
 
-
-    renderStars = () => {
-        return (
+    handleRating = (num) => {
+        this.setState({starRating: num})
+    }
+  
+  render() {
+    const far =  <FontAwesomeIcon icon="star" style={{color : "yellow", borderColor: 'black' }}/>; 
+    const num = this.state.starRating; 
+    const fas =  <FontAwesomeIcon icon={["far", "star"]}/>;        
+    const StarValues = {
+        0: [far, far, far, far, far],
+        1: [far, fas, fas, fas, fas], 
+        2: [far, far, fas, fas, fas], 
+        3: [far, far, far, fas, fas], 
+        4: [far, far, far, far, fas], 
+        5: [far, far, far, far, far]
+    }; 
+    return (
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                { this.state.starRating.map ( (rating, i) => {
-                    const fas =  <FontAwesomeIcon icon="star" style={{color : "yellow", borderColor: 'black' }}/>; 
-                    const far =  <FontAwesomeIcon icon={["far", "star"]}/>           
+                { StarValues[num].map ( (rating, i) => {
+                    return(
+                    
                     <TouchableHighlight>
-                        <View>  {rating} </View>
+                        <Text 
+                            key={ i + 1 } 
+                            onPress={() => this.handleRating(i+1)}
+                            
+                            >  {rating} </Text>
                     </TouchableHighlight> 
-
+                    )
                 })
              }
              </View>
-          );
-    }
-  render() {
-    return (
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <TouchableHighlight>
-              <View>
-              <FontAwesomeIcon icon={["far", "star"]}/>
-              {/* <FontAwesomeIcon icon="star" style={{color : "yellow", borderColor: 'black' }}/> */}
-                </View>
-             </TouchableHighlight> 
-             <TouchableHighlight>
-              <View>
-              <FontAwesomeIcon icon={["far", "star"]}/>
-              {/* <FontAwesomeIcon icon="star" style={{color : "yellow", borderColor: 'black' }}/> */}
-                </View>
 
-             </TouchableHighlight> 
-             <TouchableHighlight>
-              <View>
-              <FontAwesomeIcon icon={["far", "star"]}/>
-              {/* <FontAwesomeIcon icon="star" style={{color : "yellow", borderColor: 'black' }}/> */}
-                </View>
-
-             </TouchableHighlight> 
-             <TouchableHighlight>
-              <View>
-              <FontAwesomeIcon icon={["far", "star"]}/>
-              {/* <FontAwesomeIcon icon="star" style={{color : "yellow", borderColor: 'black' }}/> */}
-                </View>
-
-             </TouchableHighlight> 
-             <TouchableHighlight>
-              <View>
-              <FontAwesomeIcon icon={["far", "star"]}/>
-              {/* <FontAwesomeIcon icon="star" style={{color : "yellow", borderColor: 'black' }}/> */}
-                </View>
-
-             </TouchableHighlight> 
-      </View>
     )
   }
 }
