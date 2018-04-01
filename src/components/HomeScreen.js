@@ -21,16 +21,13 @@ class HomeScreen extends Component {
         modalVisible: false,
         renderResults: false, 
         renderLocation: false,
-
-       
     }
-    // this.submitSearch = this.submitSearch.bind(this);
   }
 
   getResults = (data) => {
-    console.log("returned data", data)
+    // console.log("returned data", data)
       this.setState({results: data})
-      console.log("this is state", this.state.results);
+      // console.log("this is state", this.state.results);
       
         this.props.history.push({
           pathname: '/locations',

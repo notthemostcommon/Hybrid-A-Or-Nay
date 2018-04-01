@@ -5,12 +5,29 @@ import { Router, Switch, Route, Link } from './Routing';
 import ShowLocation from './components/ShowLocation'; 
 // import Search from './components/Search'; 
 import Results from './components/Results'; 
+// import fontawesome from '@fortawesome/fontawesome'
+// import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+// import faStar from '@fortawesome/fontawesome-free-solid/faStar'; 
+// import faStar from '@fortawesome/fontawesome-free-regular/faStar'; 
+import solid from '@fortawesome/fontawesome-free-solid'; 
+import regular from '@fortawesome/fontawesome-free-regular'; 
+
+
+import fontawesome from '@fortawesome/fontawesome'; 
+
+
+// import '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css';
 
  
 
-const HomeComponent = () => (
+fontawesome.library.add(solid, regular)
+
+
+const HomeComponent = () => {
+  return (
   <HomeScreen />
-)
+  )
+}
 
 const ResultsComponent = () => {
   return(
@@ -18,13 +35,11 @@ const ResultsComponent = () => {
 
   )
 }
-
-
 const LocationComponent = () => {
+  return (
   <ShowLocation />
+  )
 }
-
-
 
 export default class App extends Component {
   render() {
@@ -33,7 +48,7 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" component={HomeComponent} />
           <Route path="/locations" component={ResultsComponent} />
-          <Route path="/location/id" component={LocationComponent} />
+          <Route path="/location/:id" component={LocationComponent} />
         </Switch>
       </Router>
      

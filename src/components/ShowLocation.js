@@ -4,6 +4,8 @@ import Header from './Header';
 import Reviews from './Reviews'; 
 import axios from 'axios'; 
 import ReviewForm from './ReviewForm'; 
+import { withRouter } from '../Routing'; 
+import StarRating from './StarRating'; 
 
 
 class ShowLocation extends Component {
@@ -19,16 +21,16 @@ class ShowLocation extends Component {
     this.startReview = this.startReview.bind(this); 
   }
 
-  componentDidMount() {
-      axios.get('/reviews')
-      .then( data => 
+  // componentDidMount() {
+  //     axios.get('/reviews')
+  //     .then( data => 
         
-        this.setState({
-            reviews: data
-        }))
-        console.log("data", this.state.reviews)
+  //       this.setState({
+  //           reviews: data
+  //       }))
+  //       console.log("data", this.state.reviews)
 
-  }
+  // }
 
   startReview(){
       this.setState(prevState => ({
@@ -38,13 +40,44 @@ class ShowLocation extends Component {
   
 
   render() {
-
+    const { results } = this.props.location.state; 
+    console.log("this is show location" , results    );
     const { selected } = this.state
     const { fill, size } = this.props
+    const nested = []; 
+
+    results.forEach(d => {
+        findItems(d)
+    })
+    
+    function findItems(date) {
+        let obj = {};
+        let newData = nested.filter(d => { 
+            return d.key == date.inspection_date } )
+        if( newData.length != 0){ 
+            newData[0].values.push(date.violation_description)
+        } else {
+            obj.key = date.inspection_date
+            obj.values = [date.violation_description]
+            nested.push(obj)
+        }
+    }
+        console.log("nested", nested)
+    
 
     return (
       <View style={styles.container}>
         <Header/>
+
+        <View style={{marginTop: 22}}>
+            <View>
+              <Text style={styles.h1}>{results[0].dba}</Text>
+              <Text style={styles.grade}>{results[0].grade}</Text>
+              <Text style={styles.h3}>{`${results[0].building} ${results[0].street} ${results[0].boro} ${results[0].zipcode}`}</Text>
+            </View>
+            <StarRating/>
+             
+          </View>
         
         <Modal
         
@@ -54,22 +87,16 @@ class ShowLocation extends Component {
             visible={this.props.modalVisible}
             style={styles.container}
            >
+           
+
+
            <TouchableHighlight
                 onPress={() => {
                   this.props.setModalVisible(!this.props.modalVisible);
                 }}>
                 <Text style={styles.exit}>X</Text>
               </TouchableHighlight>
-          <View style={{marginTop: 22}}>
-            <View>
-              <Text style={styles.h1}>{this.props.data.dba}</Text>
-              <Text style={styles.grade}>{this.props.data.grade}</Text>
-              <Text style={styles.h3}>{`${this.props.data.building} ${this.props.data.street} ${this.props.data.boro} ${this.props.data.zipcode}`}</Text>
-
-
-              
-            </View>
-          </View>
+          
 
           {this.state.startReview ? <ReviewForm data={this.props.data} startReview={this.startReview} /> : null }
 
@@ -92,7 +119,7 @@ class ShowLocation extends Component {
   }
 }
 
-export default ShowLocation; 
+export default withRouter(ShowLocation); 
 
 
 const styles = StyleSheet.create({

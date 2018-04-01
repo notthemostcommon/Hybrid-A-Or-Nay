@@ -3,22 +3,14 @@ import React, { Component } from 'react'
 import { Text, View, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native'; 
 import Header from './Header'; 
 import _ from 'underscore'; 
-import { withRouter } from '../Routing'; 
+import { withRouter, Link } from '../Routing'; 
 import PropTypes from 'prop-types';
 
 
 class Results extends Component {
-  // static propTypes = {
-  //   match: PropTypes.object.isRequired,
-  //   location: PropTypes.object.isRequired,
-  //   history: PropTypes.object.isRequired
-  // }
+  
   render() {
-    // console.log("results props", this.props.location.state);
-    console.log( this.props.location.state.results );
     const { results } = this.props.location.state; 
-    
-
     
     return (
       <ImageBackground 
@@ -30,24 +22,30 @@ class Results extends Component {
           width: null, 
           }}>
 
-          
-
-          {/* <Header getResults={this.getResults}/> */}
-
-          
             <View > 
-                { _.uniq( results, false, (location => {
-                   return location.camis
-                       })).map((item, i) => {
-                    
-                        return (
-                          <TouchableOpacity onPress={() => this.onPress(item)} style={styles.list} key={item.camis}>
-                          <Text style={styles.h1}> {item.dba} </Text>
-                          <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
-                        </TouchableOpacity> 
-                    )}
+              { _.uniq( results, false, (location => {
+                  return location.camis
+                      })).map((item, i) => {
+                  
+                      return (
+                        
+                        <View style={styles.list} key={item.camis} >
+                        <Link to={ {
+                          
+                          pathname:`location/${item.camis}`,
+                          state: { results: results }
+                        }
+                        } >
+                        {/* <TouchableOpacity onPress={() => this.onPress(item)} style={styles.list} key={item.camis}> */}
+                        <Text style={styles.h1}> {item.dba} </Text>
+                        <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
+                      {/* </TouchableOpacity>  */}
+                     
+                     </ Link> 
+                     </View>
+                  )}
                 )}
-                </View>
+              </View>
 
      
       

@@ -2,8 +2,12 @@
   "name": "a-or-nay-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080", 
+  "proxy": "http://localhost:8080",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-regular": "^5.0.9",
+    "@fortawesome/fontawesome-free-solid": "^5.0.9",
+    "@fortawesome/react-fontawesome": "0.0.18",
     "axios": "^0.18.0",
     "expo": "^25.0.0",
     "react": "^16.2.0",
