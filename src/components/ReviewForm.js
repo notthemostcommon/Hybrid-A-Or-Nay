@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { View, Picker, TextInput, Button, TouchableHighlight, Text, StyleSheet} from 'react-native';
 import axios from 'axios'; 
+import StarRating from './StarRating'; 
+import { withRouter } from '../Routing'; 
 
 class ReviewForm extends Component {
-    state = { 
+    constructor(){
+        super(); 
+    
+    this.state = { 
         review: '', 
         rating: '', 
         user: '', 
         error: ''
      }
-    async onLoginPressed() {
+     this.goBack = this.goBack.bind(this); 
+    }
+    async onSubmitReview() {
     this.setState({showProgress: true})
     try {
         let response = await axios('/reviews', {
@@ -50,42 +57,39 @@ class ReviewForm extends Component {
         }
     }
 
+    goBack=()=>{
+        console.log("clicked");
+        
+        this.props.history.goBack();
+    }
 
-    render() {
+
+
+    render = (props) => {
+        const { results } = this.props.location.state; 
+        console.log("inside review form");
+        
         return (
 
         <View style={styles.container}>
+            <Button onPress={this.goBack} title="Go Back"/>
             <Text style={styles.heading}>
-                Tell Us About Your Experience @ {this.props.data.dba}
+                How would you rate your experience? 
             </Text>
+            <StarRating />
             <TextInput
               onChangeText={ (text)=> this.setState({review: text}) }
               style={styles.input} 
-              placeholder="Review"
+              placeholder={`Tell Us About Your Experience @ ${results[0].dba}`}
               multiline={true}
               numberOfLines={4}
               autoFocus={true}
               autoCapitalize='none'>
             </TextInput>
-                <Text style={styles.h3} >Rating</Text>
-                <Picker
-                    style={{height: 50, width: 50, margin: 25}}
-                    selectedValue={this.state.rating}
-                    onValueChange={(itemValue, itemIndex) => this.setState({rating: itemValue})}
-                    >
-                    <Picker.Item label="5" value= "5" />
-                    <Picker.Item label="4" value="4"  />
-                    <Picker.Item label="3" value= "3" />
-                    <Picker.Item label="2" value= "2" />
-                    <Picker.Item label="1" value= "1" />
-                                    
-                    </Picker>
                 
-                {/* <Text>5 = Killing It! </Text>
-                <Text>1 = Should Have Been Killed</Text> */}
-            
+                
             <Button
-                onPress={this.onLoginPressed.bind(this)}  style={styles.button}
+                onPress={this.onSubmitReview.bind(this)}  style={styles.button}
                 title="Submit" />
                 
 
@@ -94,7 +98,7 @@ class ReviewForm extends Component {
     }
 }
 
-export default ReviewForm;
+export default withRouter(ReviewForm);
 
 const styles = StyleSheet.create({
     container: {

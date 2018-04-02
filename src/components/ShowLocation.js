@@ -4,9 +4,8 @@ import Header from './Header';
 import Reviews from './Reviews'; 
 import axios from 'axios'; 
 import ReviewForm from './ReviewForm'; 
-import { withRouter } from '../Routing'; 
-import StarRating from './StarRating'; 
-
+import { Link, withRouter } from '../Routing'; 
+import AvgStarRating from './AvgStarRating'; 
 
 class ShowLocation extends Component {
   constructor(props) {
@@ -17,8 +16,10 @@ class ShowLocation extends Component {
         selected: false,
         reviews: '', 
         startReview: false, 
+        reviewAverage: 0, 
     };
     this.startReview = this.startReview.bind(this); 
+    this.setModalVisible = this.setModalVisible.bind(this); 
   }
 
   // componentDidMount() {
@@ -31,12 +32,16 @@ class ShowLocation extends Component {
   //       console.log("data", this.state.reviews)
 
   // }
+  setModalVisible = () => {
+      this.setState(prevState => ({modalVisible: !prevState.modalVisible})
+      )}
 
   startReview(){
       this.setState(prevState => ({
           startReview: !prevState.startReview, 
       }))
   }
+
   
 
   render() {
@@ -62,58 +67,38 @@ class ShowLocation extends Component {
             nested.push(obj)
         }
     }
-        console.log("nested", nested)
+        // console.log("nested", nested)
     
 
     return (
       <View style={styles.container}>
-        <Header/>
 
-        <View style={{marginTop: 22}}>
+
+        <View >
             <View>
               <Text style={styles.h1}>{results[0].dba}</Text>
               <Text style={styles.grade}>{results[0].grade}</Text>
               <Text style={styles.h3}>{`${results[0].building} ${results[0].street} ${results[0].boro} ${results[0].zipcode}`}</Text>
+            </View >
+            <View style={styles.rating}>
+            {this.state.reviewAverage ? <Text> User Rating Average: {this.state.reviewAverage}</Text> : <Text>Be the first to review this location!</Text>}
+            
+            <AvgStarRating />
             </View>
-            <StarRating/>
-             
-          </View>
+          </View >
+          <View style={styles.reviewBtn}>
+            <Link 
+                style={{ textDecoration: 'none' }}
+                to={{   
+                    pathname:`${results[0].camis}/review`,
+                    state: { results: results }
+                }} >
+                <Text > Start Review </Text>
+                </Link>
+            </View>
+              
         
-        <Modal
         
-            presentationStyle="fullScreen"
-            animationType="slide"
-            transparent={false}
-            visible={this.props.modalVisible}
-            style={styles.container}
-           >
-           
-
-
-           <TouchableHighlight
-                onPress={() => {
-                  this.props.setModalVisible(!this.props.modalVisible);
-                }}>
-                <Text style={styles.exit}>X</Text>
-              </TouchableHighlight>
-          
-
-          {this.state.startReview ? <ReviewForm data={this.props.data} startReview={this.startReview} /> : null }
-
-          {this.state.reviews ? <Reviews reviews={this.state.reviews}/> : 
-          this.state.startReview ? null :
-          <View> 
-            <Text>Be the First to Review {this.state.dba} </Text>
-                <TouchableHighlight
-                    onPress={this.startReview}
-                    
-                    >
-                    <Text style={{color: 'blue'}}>Start One Now!</Text>
-                </TouchableHighlight>
-             </View>
-                }
-
-        </Modal>
       </View>
     );
   }
@@ -125,13 +110,21 @@ export default withRouter(ShowLocation);
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        justifyContent: 'center', 
+        justifyContent: 'flex-start', 
         alignItems: 'center', 
         backgroundColor: '#F5FCFF', 
         padding: 10, 
         marginTop: 22, 
         width: '100%', 
 
+    },
+    reviewBtn: {
+        borderColor: 'black', 
+        backgroundColor: '#F5FCFF', 
+        padding: 10, 
+        height: 'auto', 
+        width: 'auto', 
+        borderWidth: 1,
     },
     grade: {
       flex: 1,
@@ -156,10 +149,23 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }, 
     h1: {
-        fontSize: 19,
-        fontWeight: 'bold',
+        flex: 1,
+        justifyContent: 'flex-start', 
+        fontSize: 25, 
+        color: "black", 
+        fontWeight: "bold", 
+        padding: 5, 
+        alignSelf: 'center'
       },
     h3: {
         fontSize: 15, 
+        textAlign: 'center',
     }, 
+    rating: {
+        margin: 20, 
+        padding: 20,
+        flex: 1, 
+        justifyContent: 'flex-start', 
+
+    }
 }); 

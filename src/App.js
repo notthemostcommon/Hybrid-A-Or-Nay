@@ -11,6 +11,7 @@ import Results from './components/Results';
 // import faStar from '@fortawesome/fontawesome-free-regular/faStar'; 
 import Solid from '@fortawesome/fontawesome-free-solid'; 
 import Regular from '@fortawesome/fontawesome-free-regular'; 
+import ReviewForm from './components/ReviewForm'; 
 
 
 import Fontawesome from '@fortawesome/fontawesome'; 
@@ -40,6 +41,12 @@ const LocationComponent = () => {
   <ShowLocation />
   )
 }
+const ReviewComponent = () => {
+  return (
+  <ReviewForm />
+  )
+}
+
 
 export default class App extends Component {
   render() {
@@ -48,7 +55,8 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" component={HomeComponent} />
           <Route path="/locations" component={ResultsComponent} />
-          <Route path="/location/:id" component={LocationComponent} />
+          <Route  exact path="/location/:id" component={LocationComponent} />
+          <Route  path="/location/:id/review" component={ReviewComponent} />
         </Switch>
       </Router>
      

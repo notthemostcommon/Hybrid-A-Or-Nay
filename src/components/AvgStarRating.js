@@ -14,7 +14,7 @@ import blankStar from '../images/airbnb-star.png'
 export default class StarRating extends Component {
    
     state = {
-        starRating: 0, 
+        avgRating: 0, 
         editable: this.props.editable, 
         }
 
@@ -24,7 +24,7 @@ export default class StarRating extends Component {
   render() {
       
     const fas =  <Image source={require('../images/airbnb-star.png')} style={{width: 25, height: 25}} />;        
-    const num = this.state.starRating; 
+    const num = this.state.avgRating; 
     const far =   <Image source={require('../images/airbnb-star-selected.png')} style={{ width: 25, height: 25 }}/>;
     const StarValues = {
         0: [fas, fas, fas, fas, fas],
@@ -39,12 +39,12 @@ export default class StarRating extends Component {
                 { StarValues[num].map ( (rating, i) => {
                     return(
                     
-                    <TouchableOpacity
+                    <View
                         key={ i + 1 } 
-                        onPress={() => this.handleRating(i+1)}>
+                        >
                        
                             {rating} 
-                    </TouchableOpacity> 
+                    </View> 
                     )
                 })
              }
