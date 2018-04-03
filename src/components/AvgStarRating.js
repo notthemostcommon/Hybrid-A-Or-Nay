@@ -11,20 +11,10 @@ import blankStar from '../images/airbnb-star.png'
 // on press, set state to an array of values based on star chosen 
 // in function, map over array to display new selected stars 
 
-export default class StarRating extends Component {
+export default function AvgStarRating (props) {
    
-    state = {
-        avgRating: 0, 
-        editable: this.props.editable, 
-        }
-
-    handleRating = (num) => {
-        this.setState({starRating: num})
-    }
-  render() {
-      
     const fas =  <Image source={require('../images/airbnb-star.png')} style={{width: 25, height: 25}} />;        
-    const num = this.state.avgRating; 
+    const num = props.avgRating; 
     const far =   <Image source={require('../images/airbnb-star-selected.png')} style={{ width: 25, height: 25 }}/>;
     const StarValues = {
         0: [fas, fas, fas, fas, fas],
@@ -39,12 +29,9 @@ export default class StarRating extends Component {
                 { StarValues[num].map ( (rating, i) => {
                     return(
                     
-                    <View
+                    <Text
                         key={ i + 1 } 
-                        >
-                       
-                            {rating} 
-                    </View> 
+                        >  {rating}  </Text> 
                     )
                 })
              }
@@ -52,4 +39,4 @@ export default class StarRating extends Component {
 
     )
   }
-}
+

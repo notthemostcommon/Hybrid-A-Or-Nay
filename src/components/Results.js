@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native'; 
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Image} from 'react-native'; 
 import Header from './Header'; 
 import _ from 'underscore'; 
 import { withRouter, Link } from '../Routing'; 
@@ -22,7 +22,7 @@ class Results extends Component {
           width: null, 
           }}>
 
-            <View > 
+            <View  style={styles.listContainer}> 
               { _.uniq( results, false, (location => {
                   return location.camis
                       })).map((item, i) => {
@@ -30,17 +30,19 @@ class Results extends Component {
                       return (
                         
                         <View style={styles.list} key={item.camis} >
-                        <Link to={ {
-                          
-                          pathname:`location/${item.camis}`,
-                          state: { results: results }
-                        }
+                        <Link 
+                          style={{ textDecoration: 'none' }}
+                          to={ {
+                            pathname:`location/${item.camis}`,
+                            state: { results: results }
+                          }
                         } >
                         <View>
-                        {/* <TouchableOpacity onPress={() => this.onPress(item)} style={styles.list} key={item.camis}> */}
-                        <Text style={styles.h1}> {item.dba} </Text>
+                          
+                        <TouchableOpacity onPress={() => console.log("clicked")} >
+                        <Text style={styles.h1}> {item.dba}  </Text>
                         <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
-                      {/* </TouchableOpacity>  */}
+                      </TouchableOpacity> 
                       </View>
                      </ Link> 
                      </View>
@@ -90,6 +92,8 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
   }, 
   h1: {
+      flexDirection: 'row', 
+      alignSelf: 'flex-start',
       fontSize: 19,
       fontWeight: 'bold',
     },
@@ -108,9 +112,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     },
     list: {
+      flex: 1, 
+      width: '60%', 
+      alignSelf: 'center',
+      justifyContent: 'flex-start', 
       backgroundColor: '#DDDDDD',
       padding: 10,
       borderBottomColor: '#bbb',
       borderBottomWidth: StyleSheet.hairlineWidth,
+      flexDirection: 'row',
+      margin: 2, 
     }, 
+    listContainer: {
+      width: '75%', 
+      height: '100%', 
+      alignSelf: 'center',
+      justifyContent: 'center', 
+      top: 50, 
+
+    }
 }); 

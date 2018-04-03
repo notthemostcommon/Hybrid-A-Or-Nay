@@ -10,47 +10,36 @@ class ReviewForm extends Component {
     
     this.state = { 
         review: '', 
-        rating: '', 
         user: '', 
-        error: ''
+        error: '', 
+        starRating: 0, 
      }
      this.goBack = this.goBack.bind(this); 
+    }
+
+    getStarRating = (rating) => {
+        this.setState({starRating: rating})
+        console.log(this.state.starRating);
+        
     }
     async onSubmitReview() {
     this.setState({showProgress: true})
     try {
-        let response = await axios('/reviews', {
-            method: 'POST',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user_id: 1, 
-                camis: this.props.data.camis, 
-                dba: this.props.data.dba, 
-                bldg: this.props.data.building, 
-                street: this.props.data.street, 
-                boro: this.props.data.boro, 
-                zip: this.props.data.zip, 
-                rating: this.state.rating, 
-                review: this.state.review, 
-                grade: this.props.data.grade, 
-                categroy: this.props.data.category
-            })
+        let response = await axios.post('http://localhost:8080/reviews', {
+            user_id: 1, 
+            camis: this.props.location.state.results[0].camis, 
+            dba: this.props.location.state.results[0].dba, 
+            bldg: this.props.location.state.results[0].building, 
+            street: this.props.location.state.results[0].street, 
+            boro: this.props.location.state.results[0].boro, 
+            zip: this.props.location.state.results[0].zipcode, 
+            rating: this.state.starRating, 
+            review: this.state.review, 
+            grade: this.props.location.state.results[0].grade, 
+            category: this.props.location.state.results[0].cuisine_description
         });
-        let res = await response.text();
-        if (response.status >= 200 && response.status < 300) {
-            //Handle success
-            this.setState({error: ''});
-            this.props.startReview(); 
-            
+                this.props.history.goBack();
 
-        } else {
-            //Handle error
-            let error = res;
-            throw error;
-        }
         } catch(error) {
             this.setState({error: error});
             console.log("error " + error);
@@ -63,20 +52,19 @@ class ReviewForm extends Component {
         this.props.history.goBack();
     }
 
-
-
     render = (props) => {
+        
         const { results } = this.props.location.state; 
         console.log("inside review form");
         
         return (
 
         <View style={styles.container}>
-            <Button onPress={this.goBack} title="Go Back"/>
+            
             <Text style={styles.heading}>
                 How would you rate your experience? 
             </Text>
-            <StarRating />
+            <StarRating starRating={this.state.starRating} getStarRating={this.getStarRating}/>
             <TextInput
               onChangeText={ (text)=> this.setState({review: text}) }
               style={styles.input} 
@@ -87,10 +75,13 @@ class ReviewForm extends Component {
               autoCapitalize='none'>
             </TextInput>
                 
-                
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20, width: '40%'}}> 
+            <Button onPress={this.goBack} title="Go Back"/>
             <Button
-                onPress={this.onSubmitReview.bind(this)}  style={styles.button}
+                onPress={this.onSubmitReview.bind(this)}  
                 title="Submit" />
+                </View>    
+            
                 
 
                 </View>
@@ -131,7 +122,9 @@ const styles = StyleSheet.create({
         margin: 5, 
     }, 
     button: {
-        margin: 50, 
+        margin: 50,
+        height: 40, 
+        width: 75, 
 
     }, 
     

@@ -9,10 +9,10 @@ import Results from './components/Results';
 // import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 // import faStar from '@fortawesome/fontawesome-free-solid/faStar'; 
 // import faStar from '@fortawesome/fontawesome-free-regular/faStar'; 
-import Solid from '@fortawesome/fontawesome-free-solid'; 
+import Solid, {faItalic} from '@fortawesome/fontawesome-free-solid'; 
 import Regular from '@fortawesome/fontawesome-free-regular'; 
 import ReviewForm from './components/ReviewForm'; 
-
+import ReviewEditForm from './components/ReviewEditForm'; 
 
 import Fontawesome from '@fortawesome/fontawesome'; 
 
@@ -47,6 +47,12 @@ const ReviewComponent = () => {
   )
 }
 
+const ReviewEditComponent = () => {
+   return (
+     <ReviewEditForm />
+   )
+  }
+
 
 export default class App extends Component {
   render() {
@@ -56,7 +62,8 @@ export default class App extends Component {
           <Route exact path="/" component={HomeComponent} />
           <Route path="/locations" component={ResultsComponent} />
           <Route  exact path="/location/:id" component={LocationComponent} />
-          <Route  path="/location/:id/review" component={ReviewComponent} />
+          <Route  exact path="/location/:id/review" component={ReviewComponent} />
+          <Route  exact path="/review/:id/edit" component={ReviewEditComponent} />
         </Switch>
       </Router>
      

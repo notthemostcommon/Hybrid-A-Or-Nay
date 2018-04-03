@@ -11,21 +11,12 @@ import blankStar from '../images/airbnb-star.png'
 // on press, set state to an array of values based on star chosen 
 // in function, map over array to display new selected stars 
 
-export default class StarRating extends Component {
-   
-    state = {
-        starRating: 0, 
-        editable: this.props.editable, 
-        }
-
-    handleRating = (num) => {
-        this.setState({starRating: num})
-    }
-  render() {
-      
-    const fas =  <Image source={require('../images/airbnb-star.png')} style={{width: 25, height: 25}} />;        
-    const num = this.state.starRating; 
-    const far =   <Image source={require('../images/airbnb-star-selected.png')} style={{ width: 25, height: 25 }}/>;
+export default function StarRating (props) {
+    
+  
+    const fas =  <Image source={require('../images/airbnb-star.png')} style={{width: 60, height: 60, marginTop: 30, marginBottom: 30}} />;        
+    const num = props.starRating; 
+    const far =   <Image source={require('../images/airbnb-star-selected.png')} style={{ width: 60, height: 60, marginTop: 30, marginBottom: 30}}/>;
     const StarValues = {
         0: [fas, fas, fas, fas, fas],
         1: [far, fas, fas, fas, fas], 
@@ -37,11 +28,13 @@ export default class StarRating extends Component {
     return (
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 { StarValues[num].map ( (rating, i) => {
+                    
+                    
                     return(
                     
                     <TouchableOpacity
                         key={ i + 1 } 
-                        onPress={() => this.handleRating(i+1)}>
+                        onPress={() => props.getStarRating(i+1)}>
                        
                             {rating} 
                     </TouchableOpacity> 
@@ -52,4 +45,4 @@ export default class StarRating extends Component {
 
     )
   }
-}
+
