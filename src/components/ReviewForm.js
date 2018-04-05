@@ -13,6 +13,8 @@ class ReviewForm extends Component {
         user: '', 
         error: '', 
         starRating: 0, 
+        reviewError: false,  
+
      }
      this.goBack = this.goBack.bind(this); 
     }
@@ -23,26 +25,32 @@ class ReviewForm extends Component {
         
     }
     async onSubmitReview() {
-    this.setState({showProgress: true})
-    try {
-        let response = await axios.post('http://localhost:8080/reviews', {
-            user_id: 1, 
-            camis: this.props.location.state.results[0].camis, 
-            dba: this.props.location.state.results[0].dba, 
-            bldg: this.props.location.state.results[0].building, 
-            street: this.props.location.state.results[0].street, 
-            boro: this.props.location.state.results[0].boro, 
-            zip: this.props.location.state.results[0].zipcode, 
-            rating: this.state.starRating, 
-            review: this.state.review, 
-            grade: this.props.location.state.results[0].grade, 
-            category: this.props.location.state.results[0].cuisine_description
-        });
-                this.props.history.goBack();
+    this.setState({showProgress: true, reviewError: false})
+    if (this.state.starRating == '' || this.state.review == '') {
+        this.setState({reviewError: true})
+         
+    } else {
 
-        } catch(error) {
-            this.setState({error: error});
-            console.log("error " + error);
+        try {
+            let response = await axios.post('http://localhost:8080/reviews', {
+                user_id: 1, 
+                camis: this.props.location.state.results[0].camis, 
+                dba: this.props.location.state.results[0].dba, 
+                bldg: this.props.location.state.results[0].building, 
+                street: this.props.location.state.results[0].street, 
+                boro: this.props.location.state.results[0].boro, 
+                zip: this.props.location.state.results[0].zipcode, 
+                rating: this.state.starRating, 
+                review: this.state.review, 
+                grade: this.props.location.state.results[0].grade, 
+                category: this.props.location.state.results[0].cuisine_description
+            });
+                    this.props.history.goBack();
+
+            } catch(error) {
+                this.setState({error: error});
+                console.log("error " + error);
+            }
         }
     }
 
@@ -81,6 +89,7 @@ class ReviewForm extends Component {
                 onPress={this.onSubmitReview.bind(this)}  
                 title="Submit" />
                 </View>    
+                {this.state.reviewError && <Text style={styles.error} > Check that you rated and reviewed this location! </Text> }
             
                 
 
@@ -120,6 +129,12 @@ const styles = StyleSheet.create({
         fontSize: 15, 
         padding: 5, 
         margin: 5, 
+    }, 
+    error: {
+        fontSize: 15, 
+        padding: 5, 
+        margin: 5,
+        color: 'red',  
     }, 
     button: {
         margin: 50,

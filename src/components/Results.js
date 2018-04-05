@@ -1,26 +1,49 @@
 
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'; 
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Image, ScrollView, TouchableHighlight} from 'react-native'; 
 import Header from './Header'; 
 import _ from 'underscore'; 
 import { withRouter, Link } from '../Routing'; 
 import PropTypes from 'prop-types';
 
 
+
 class Results extends Component {
   
   render() {
     const { results } = this.props.location.state; 
+    const { text } = this.props.location.state; 
+    console.log("this is search text", text);
+    
+
     
     return (
-      <ImageBackground 
-        source={require('../assets/Red_Tablecloth_gw7h60.png')}
-        resizeMode="cover"
-        style={{
-          flex: 1, 
-          height: null, 
-          width: null, 
-          }}>
+      <ScrollView>
+          <View style={{height: 110,  padding: 20,  backgroundColor:'#ADDDDD', justifyContent: 'center',flexDirection: 'row', alignItems:'center'}}>
+              <View style={{flexDirection: 'row', justifyContent:'flex-end'}}>
+                  <TouchableOpacity 
+                      onPress={() => this.props.history.goBack()}
+                      style={{ flex: 1 }} >
+                      <Image 
+                        source={require("../assets/004-arrows.png")}
+                        style={{height: 30, width: 30, top: 15, alignSelf: 'flex-start'}} 
+                        />
+                    </ TouchableOpacity> 
+                  <Text style={styles.h2}>{text}</Text>
+                  
+                  <Text style={{ flex: 1, textAlign: 'center'}}></Text>
+                  
+                </View>
+              </View>
+           
+          <ImageBackground 
+            source={require('../assets/Red_Tablecloth_gw7h60.png')}
+            resizeMode="cover"
+            style={{
+              flex: 1, 
+              height: null, 
+              width: null, 
+              }}>
 
             <ScrollView  > 
               { _.uniq( results, false, (location => {
@@ -29,30 +52,32 @@ class Results extends Component {
                   
                       return (
                         
-                        <View style={styles.list} key={item.camis} >
+                        <View  key={item.camis} >
                           <Link 
-                            // style={{ textDecoration: 'none' }}
                             to={ {
                               pathname:`location/${item.camis}`,
                               state: { results: results }
                             }
                           } >
-                            <View>
-                                  
+                            <View style={styles.list}>
+                                  <View> 
                                 {/* <TouchableOpacity onPress={() => console.log("clicked")} > */}
                                     <Text style={styles.h1}> {item.dba}  </Text>
                                     <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
                               {/* </TouchableOpacity>  */}
+                              </View>
+                              <Text style={{flex: 1, position: 'absolute', right: 5, top:17}} > 
+                                 <Image source={require('../assets/003-arrows-1.png')} style={{height: 20, width: 20}} />
+                              </Text>
                             </View>
                         </ Link> 
                      </View>
                   )}
                 )}
               </ScrollView>
-
-     
-      
-    </ImageBackground>
+     </ImageBackground>
+    </ScrollView>
+    
     )
   }
 }
@@ -69,54 +94,33 @@ const styles = StyleSheet.create({
       width: '100%', 
 
   },
-  grade: {
-    flex: 1,
-    justifyContent: 'flex-end', 
-    fontSize: 25, 
-    color: "green", 
-    fontWeight: "bold", 
-    padding: 5, 
-    alignSelf: 'center'
-  }, 
-  exit: {
-      flex: 1, 
-      flexDirection: 'row',
-      alignSelf: 'flex-end', 
-      backgroundColor: 'red', 
-      marginTop: 50, 
-      color: 'white', 
-      borderColor: '#8B0000', 
-      width: 20, 
-      height: 20, 
-      padding: 5, 
-      fontWeight: 'bold'
-  }, 
+  h2: {
+    // flexDirection: 'row', 
+
+    alignSelf: 'flex-end',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textDecorationLine: 'none', 
+    flex: 2, 
+    paddingTop: 25, 
+
+  },
+  
   h1: {
       flexDirection: 'row', 
       alignSelf: 'flex-start',
-      fontSize: 19,
+      fontSize: 15,
       fontWeight: 'bold',
       textDecorationLine: 'none'
     },
   h3: {
-      fontSize: 15, 
+      fontSize: 12, 
       textDecorationLine: 'none'
 
   }, 
-  box: {
-    margin: 10,
-    flex: 1,
-    backgroundColor: 'transparent',
-    borderColor: 'white',
-    borderWidth: 30,
-    overflow: 'hidden',
-    shadowColor: 'black',
-    shadowRadius: 10,
-    shadowOpacity: 1,
-    },
     list: {
-      flex: 1, 
-      width: '85%', 
+      flex: 6, 
+      width: '90%', 
       alignSelf: 'center',
       justifyContent: 'flex-start', 
       backgroundColor: '#F5FCFF',
@@ -125,15 +129,9 @@ const styles = StyleSheet.create({
       borderBottomWidth: StyleSheet.hairlineWidth,
       flexDirection: 'row',
       margin: 1, 
-      top: 50, 
+      top: 10, 
+      borderRadius: 7,
 
     }, 
-    listContainer: {
-      width: '75%', 
-      height: '100%', 
-      alignSelf: 'center',
-      justifyContent: 'center', 
-      top: 50, 
-
-    }
+    
 }); 

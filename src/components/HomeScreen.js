@@ -26,14 +26,17 @@ class HomeScreen extends Component {
     }
   }
 
-  getResults = (data) => {
-    // console.log("returned data", data)
-      this.setState({results: data})
+  getResults = (data, text) => {
+    console.log("returned text", text)
+      this.setState({
+        results: data, 
+        text: text
+      })
       // console.log("this is state", this.state.results);
       
         this.props.history.push({
           pathname: '/locations',
-          state: { results: this.state.results }
+          state: { results: this.state.results, text: this.state.text }
 
            })
           }
@@ -48,6 +51,7 @@ class HomeScreen extends Component {
                 height: null, 
                 width: null, 
                 }}>
+
               <View style={{flex: 1, width: '100%', margin: 20}}>
 
                   <Text style={{flex: 1, width: '80%', marginTop: 50, borderRadius: 15}}> <Search getResults={this.getResults}/>
@@ -83,20 +87,7 @@ class HomeScreen extends Component {
         top: -200
         
       },
-      // search: {
-      //   flex: 1, 
-      //   marginTop: 50, 
-      //   backgroundColor:'white', 
-      //   justifyContent: 'center',
-      //   height: 50,
-      //   width: 300,   
-      // },
-      // homeLayout: {
-      //   flex: 1, 
-      //   flexDirection: 'row', 
 
-      // }, 
-       
         text: {
           fontSize: 20,
           paddingTop: 20, 

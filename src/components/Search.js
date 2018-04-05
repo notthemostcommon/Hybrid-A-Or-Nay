@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  View, Text, StyleSheet, KeyboardAwareScrollView, TextInput, FlatList, List, ListItem, ListView, TouchableOpacity, TouchableHighlight } from 'react-native';
+import {  View, Text, StyleSheet, KeyboardAwareScrollView, TextInput, FlatList, List, ListItem, ListView, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
 import Indicator from './ActivityIndicator'; 
 import { Route } from '../Routing'; 
 import ShowLocation from './ShowLocation'; 
@@ -27,7 +27,7 @@ export default class Search extends Component {
         })
         .then (data => {
           
-          this.props.getResults(data); 
+          this.props.getResults(data, this.state.text); 
         
           
           // this.textInput.clear()
@@ -42,20 +42,24 @@ export default class Search extends Component {
   render() {
     
     return (
-        <View style={{width: '100%', height: '100%'}} > 
+        <View style={{width: '100%', height: '100%', }} > 
 
         {this.state.loading && <Indicator/>}
+        <Text style={{ flexDirection: 'row', fontSize: 18 }} >
+          <TextInput
+              autoFocus={true}
+              style={{  width: 325,  height: 50, borderColor: '#48bbec', borderWidth: 3, borderRadius: 15, backgroundColor: 'white', paddingLeft: 10, }}
+              placeholder='     Search (Eateries, Bars, Coffee Shops ...)'
+              returnKeyType='search'
+              onChangeText={(text) => this.setState({text})}
+              clearButtonMode="while-editing" 
+              onSubmitEditing={this.submitSearch}
+              ref={input => { this.textInput = input }}           
+              />
+          </Text>
+          
 
-        <TextInput
-            autoFocus={true}
-            style={{  width: 325,  height: 50, borderColor: '#48bbec', borderWidth: 3, borderRadius: 15, backgroundColor: 'white' }}
-            placeholder='     Search (Eateries, Bars, Coffee Shops ...)'
-            returnKeyType='search'
-            onChangeText={(text) => this.setState({text})}
-            clearButtonMode="while-editing" 
-            onSubmitEditing={this.submitSearch}
-            ref={input => { this.textInput = input }}           
-            />
+              
 
         </View>    
         );
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
       padding: 10, 
       height: 30,
       marginTop: 10,
-      // fontSize: 18,
+      fontSize: 15,
       borderWidth: 1,
       borderColor: '#48bbec', 
       // width: '75%',

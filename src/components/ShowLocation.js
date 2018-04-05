@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Text, TouchableHighlight, View, StyleSheet, Image, Animated, Easing, TouchableOpacity, Button, ImageBackground} from 'react-native';
+import {Text, TouchableHighlight, View, StyleSheet, Image, ScrollView, TouchableOpacity, Button, ImageBackground} from 'react-native';
 import Header from './Header'; 
 import Reviews from './Reviews'; 
 import axios from 'axios'; 
@@ -19,7 +19,7 @@ class ShowLocation extends Component {
         reviews: '', 
         startReview: false, 
         reviewAverage: 0, 
-        avgRating: '', 
+        avgRating: '',
     };
   }
 
@@ -35,6 +35,8 @@ class ShowLocation extends Component {
         this.average(this.state.reviews); 
         console.log("state.avg", this.state.avgRating);
         
+    }).catch( err => {
+        console.log(err); 
     })
     
 
@@ -91,6 +93,50 @@ class ShowLocation extends Component {
 
 
     return (
+        <ScrollView>
+        <View style={{height: 110,  padding: 20,  backgroundColor:'#ADDDDD', justifyContent: 'center',flexDirection: 'row', alignItems:'center'}}>
+              <View style={{flexDirection: 'row', justifyContent:'flex-end'}}>
+                  <TouchableOpacity 
+                      onPress={() => this.props.history.goBack()}
+                      style={{ flex: 1 }} >
+                      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} > 
+                        <Image 
+                            source={require("../assets/004-arrows.png")}
+                            style={{height: 30, width: 30, top: 15, alignSelf: 'flex-start'}} 
+                            />
+                            <View style={{height: 25, width: 65, top: 15, alignSelf: 'center'}} > 
+                                <Text style={{color: '#007BCA'}} >Results</Text>
+                                </View>
+                            
+                        </View>
+                    </ TouchableOpacity> 
+                  <Text style={{ flex: 1 }} ></Text>
+                  
+                  <TouchableOpacity 
+                      onPress={() => this.props.history.goBack()}
+                      style={{ flex: 1 }} >
+                      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', height: 25, width: 110, top: 15, justifyContent: 'center', alignSelf: 'center',}} > 
+                            <Link 
+                                    // style={{ textDecoration: 'none' }}
+                                    to={{   
+                                        pathname:`${results[0].dba}/violations`,
+                                        state: { title: nested }
+                                    }} >
+                                        <Text style={{color: '#007BCA', textDecorationLine: 'none'}} >Violations<Image 
+                                            source={require("../assets/003-arrows-1.png")}
+                                            style={{height: 30, width: 30,  }} 
+                                            />
+                                             </Text>
+                                        </Link>
+                                </View>
+                        
+                            
+                        {/* </View> */}
+                    </ TouchableOpacity> 
+                  
+                </View>
+              </View>
+           
         <ImageBackground 
               source={require('../assets/Red_Tablecloth_gw7h60.png')}
               resizeMode="cover"
@@ -106,27 +152,19 @@ class ShowLocation extends Component {
                     </View>
                     <View style={{ flex: 2 }}></View>
                 <View style={{ flex: 1}}>
-                <View style={styles.buttonStyle}>
-                        <Link 
-                            // style={{ textDecoration: 'none' }}
-                            to={{   
-                                pathname:`${results[0].dba}/violations`,
-                                state: { title: nested }
-                            }} >
-                            <Text style={styles.textStyle}>Violations</Text>
-                            
-                            </Link>
-                        </View>
+                
                     </View>
                 </View>
             </View>
 
 
       <View style={styles.container}>
+      <Text style={styles.h1}>{locationResults[0].dba}</Text>
+
 
         <View style={{flex: 1, flexDirection: 'row'}} >
             <View style={{flex: 1}} >
-              <Text style={styles.h1}>{locationResults[0].dba}</Text>
+              
               <Text style={locationResults[0].grade === "A" ? styles.gradeA : styles.grade }>{locationResults[0].grade}</Text>
               <Text style={styles.h3}>{`${locationResults[0].building} ${locationResults[0].street} ${locationResults[0].boro} ${results[0].zipcode}`}</Text>
               <View style={styles.rating}>
@@ -175,13 +213,13 @@ class ShowLocation extends Component {
                                 </TouchableOpacity>
                             </View>
                             <Text style={styles.h3} > User {data.user_id} says: </Text>
-                            <Text style={styles.h1} > {data.review} </Text>
+                            <Text style={styles.h2} > {data.review} </Text>
                             <AvgStarRating avgRating={data.rating}/>
                         </View>
                         )
   
                     }) : 
-                    <Text style={styles.h1}> There are currently no reviews </Text>
+                    <Text style={styles.h3}> There are currently no reviews </Text>
                 }
                 </View>
               
@@ -189,6 +227,7 @@ class ShowLocation extends Component {
         
       </View>
       </ImageBackground>
+      </ScrollView>
     );
   }
 }
@@ -215,24 +254,32 @@ const styles = StyleSheet.create({
 
       },
     buttonStyle: {
-    
-            backgroundColor: '#2E9298',
-            borderRadius: 10,
-            padding: 10,
-            shadowColor: '#000000',
-            shadowOffset: {
-              width: 0,
-              height: 3
-            },
-            shadowRadius: 5,
-            shadowOpacity: 1.0
+
+        backgroundColor: '#007BCA',
+        borderRadius: 10,
+        padding: 10,
+        shadowColor: '#000000',
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 5,
+        shadowOpacity: 1.0
           
+      },
+      h2: {
+        alignSelf: 'flex-end',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textDecorationLine: 'none', 
+        flex: 2, 
+        paddingTop: 25, 
       },
     
     gradeA: {
       flex: 1,
       justifyContent: 'flex-end', 
-      fontSize: 25, 
+      fontSize: 50, 
       color: "green", 
       fontWeight: "bold", 
       padding: 5, 
@@ -263,12 +310,21 @@ const styles = StyleSheet.create({
     h1: {
         flex: 1,
         justifyContent: 'flex-start', 
-        fontSize: 25, 
+        fontSize: 50, 
         color: "black", 
         fontWeight: "bold", 
         padding: 5, 
         alignSelf: 'center'
       },
+    h2: {
+    flex: 1,
+    justifyContent: 'flex-start', 
+    fontSize: 25, 
+    color: "black", 
+    fontWeight: "bold", 
+    padding: 5, 
+    alignSelf: 'center'
+    },
     h3: {
         fontSize: 15, 
         textAlign: 'center',
@@ -281,11 +337,19 @@ const styles = StyleSheet.create({
 
     },
     list: {
-        backgroundColor: '#DDDDDD',
+        flex: 6, 
+        width: '90%', 
+        alignSelf: 'center',
+        justifyContent: 'flex-start', 
+        backgroundColor: '#F5FCFF',
         padding: 10,
-        margin: 15, 
         borderBottomColor: '#bbb',
         borderBottomWidth: StyleSheet.hairlineWidth,
+        flexDirection: 'row',
+        margin: 1, 
+        top: 10, 
+        borderRadius: 7,
+  
       },     
 
 }); 

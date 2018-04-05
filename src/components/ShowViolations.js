@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Text, View, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'; 
+import { Text, View, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, Image } from 'react-native'; 
 import _ from 'underscore'; 
 import { withRouter } from '../Routing'; 
 
@@ -9,17 +9,27 @@ class ShowViolations extends Component {
 
       render = (props) => {
         const { title } = this.props.location.state; 
-        console.log("showviolations", title);
         const { match: { params } } = this.props;
 
         
 return (
         <ScrollView >
-            <TouchableHighlight
-                onPress={() => this.props.history.goBack() } >
-                 <Text style={ styles.topbar }>Go Back</Text>
-
-            </TouchableHighlight>
+            <View style={{height: 110,  padding: 20,  backgroundColor:'#ADDDDD', justifyContent: 'center',flexDirection: 'row', alignItems:'center'}}>
+              <View style={{flexDirection: 'row', justifyContent:'flex-end'}}>
+                  <TouchableOpacity 
+                      onPress={() => this.props.history.goBack()}
+                      style={{ flex: 1 }} >
+                      <Image 
+                        source={require("../assets/004-arrows.png")}
+                        style={{height: 30, width: 30, top: 15, alignSelf: 'flex-start'}} 
+                        />
+                    </ TouchableOpacity> 
+                  <Text style={{flex: 1}}></Text>
+                  
+                  <Text style={{ flex: 1, textAlign: 'center'}}></Text>
+                  
+                </View>
+              </View>
 
             <Text style={styles.heading} >Violations for {params.id} </Text>
         

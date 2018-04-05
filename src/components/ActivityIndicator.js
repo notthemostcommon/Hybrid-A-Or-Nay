@@ -10,8 +10,8 @@ import {
 class Indicator extends Component {
   render() {
     return (
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#48bbec" />
       </View>
     )
   }
@@ -20,12 +20,10 @@ class Indicator extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center', 
+    alignSelf: 'center',
     padding: 10
-  }
+  },
+  
 })
 export default Indicator; 
