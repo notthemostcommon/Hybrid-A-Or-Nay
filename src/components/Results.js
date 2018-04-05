@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Image} from 'react-native'; 
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'; 
 import Header from './Header'; 
 import _ from 'underscore'; 
 import { withRouter, Link } from '../Routing'; 
@@ -22,7 +22,7 @@ class Results extends Component {
           width: null, 
           }}>
 
-            <View  style={styles.listContainer}> 
+            <ScrollView  > 
               { _.uniq( results, false, (location => {
                   return location.camis
                       })).map((item, i) => {
@@ -30,25 +30,25 @@ class Results extends Component {
                       return (
                         
                         <View style={styles.list} key={item.camis} >
-                        <Link 
-                          style={{ textDecoration: 'none' }}
-                          to={ {
-                            pathname:`location/${item.camis}`,
-                            state: { results: results }
-                          }
-                        } >
-                        <View>
-                          
-                        <TouchableOpacity onPress={() => console.log("clicked")} >
-                        <Text style={styles.h1}> {item.dba}  </Text>
-                        <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
-                      </TouchableOpacity> 
-                      </View>
-                     </ Link> 
+                          <Link 
+                            // style={{ textDecoration: 'none' }}
+                            to={ {
+                              pathname:`location/${item.camis}`,
+                              state: { results: results }
+                            }
+                          } >
+                            <View>
+                                  
+                                {/* <TouchableOpacity onPress={() => console.log("clicked")} > */}
+                                    <Text style={styles.h1}> {item.dba}  </Text>
+                                    <Text style={styles.h3}> {`${item.building} ${item.street} ${item.boro} ${item.zipcode}`} </Text>
+                              {/* </TouchableOpacity>  */}
+                            </View>
+                        </ Link> 
                      </View>
                   )}
                 )}
-              </View>
+              </ScrollView>
 
      
       
@@ -96,9 +96,12 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-start',
       fontSize: 19,
       fontWeight: 'bold',
+      textDecorationLine: 'none'
     },
   h3: {
       fontSize: 15, 
+      textDecorationLine: 'none'
+
   }, 
   box: {
     margin: 10,
@@ -113,15 +116,17 @@ const styles = StyleSheet.create({
     },
     list: {
       flex: 1, 
-      width: '60%', 
+      width: '85%', 
       alignSelf: 'center',
       justifyContent: 'flex-start', 
-      backgroundColor: '#DDDDDD',
+      backgroundColor: '#F5FCFF',
       padding: 10,
       borderBottomColor: '#bbb',
       borderBottomWidth: StyleSheet.hairlineWidth,
       flexDirection: 'row',
-      margin: 2, 
+      margin: 1, 
+      top: 50, 
+
     }, 
     listContainer: {
       width: '75%', 

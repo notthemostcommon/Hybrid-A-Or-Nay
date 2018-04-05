@@ -4,11 +4,13 @@ import  {
   Text,
   View, 
   Image, 
-  ImageBackground, 
+  ImageBackground,
+  ScrollView 
 } from 'react-native';
 import Header from './Header';
 import { Route, Link, withRouter, Redirect } from '../Routing'; 
 import Results from './Results'; 
+import Search from './Search'; 
 import _ from 'underscore'; 
 
 class HomeScreen extends Component {
@@ -34,33 +36,9 @@ class HomeScreen extends Component {
           state: { results: this.state.results }
 
            })
-        
-        
-      
-    //   _.uniq(data, false, (location => {
-    //         return location.camis
-    //       })).length > 1 ? 
-         
-    //         this.setState({ 
-    //           results: data, 
-    //           renderResults: true
-    //       }) 
-    //       : 
-    //         this.setState({
-    //           results: data, 
-    //           renderLocation: true
-    //         })
-    // console.log("this is results", this.state.renderResults);
-    // console.log(("this is location", this.state.renderLocation));
-    
-    
-  }
+          }
     render() {
-      // if ( this.state.renderResults )
-      //       return (<Redirect to={{
-      //           pathname: '/locations',
-      //           state: { referrer: this.state.results }
-      //       }} />)
+      
         return (
             <ImageBackground 
               source={require('../assets/Red_Tablecloth_gw7h60.png')}
@@ -70,28 +48,24 @@ class HomeScreen extends Component {
                 height: null, 
                 width: null, 
                 }}>
+              <View style={{flex: 1, width: '100%', margin: 20}}>
 
-              <Header getResults={this.getResults}/>
-              <Image 
-                style={styles.icon}
-                resizeMode="contain"
-                source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>   
+                  <Text style={{flex: 1, width: '80%', marginTop: 50, borderRadius: 15}}> <Search getResults={this.getResults}/>
+                     
+                    </Text>
+                    <Image 
+                      style={styles.icon}
+                      resizeMode="cover"
+                      source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>   
+                       <Text style={{alignSelf: 'flex-start'}}>
+                        <Text style={styles.text}> Discover Your Favorite Restaurants</Text>
+                        <Text style={styles.italics} > And What You Never Wanted to Know</Text>
+                      </Text>
                   
-              <Text style={styles.text}> Discover Your Favorite Restaurants</Text>
-                 
-              <Text style={styles.italics} > And What You Never Wanted to Know</Text>
-              {/* {this.state.renderResults && 
-              // <Route exact path="/lcoations" render={ (props) => ( <Results results={this.state.results}/>)} />}
-                <Redirect              
-                    push to={{
-                      pathname: "/locations",
-                      state: { referrers: this.state.results} }}/>} 
-
-                    {this.state.renderLocation && 
-                <Redirect              
-                  push to={{
-                    pathname: "/location",
-                    state: { results: this.state.results} }}/>} */}
+              
+                
+              </View>
+             
             </ImageBackground>
         );
       }
@@ -103,37 +77,45 @@ class HomeScreen extends Component {
       
       icon: {
         flex: 1, 
-        justifyContent: 'center',
         alignSelf: 'center', 
-        // height: '100%', 
-        width: '50%', 
-        height: '50%', 
-        padding: 10,  
-      
+        width: 500, 
+        height: 500, 
+        top: -200
+        
       },
-      
-        logo: {
-          flex: 1, 
-          justifyContent: 'flex-start', 
-          alignItems: 'center', 
-          zIndex: 0,
-      },
+      // search: {
+      //   flex: 1, 
+      //   marginTop: 50, 
+      //   backgroundColor:'white', 
+      //   justifyContent: 'center',
+      //   height: 50,
+      //   width: 300,   
+      // },
+      // homeLayout: {
+      //   flex: 1, 
+      //   flexDirection: 'row', 
+
+      // }, 
+       
         text: {
           fontSize: 20,
-          paddingTop: 200, 
-          marginBottom: 15, 
-          fontFamily: 'ChalkboardSE-Regular',
+          paddingTop: 20, 
+          fontFamily: 'Arial',
           fontWeight: '700',
           textAlign: 'center',
-          justifyContent: 'space-around'
+          color: '#007BCA', 
+          margin: 20, 
+       
       }, 
       
         italics: {
           fontSize: 20,
           marginBottom: 15, 
-          fontFamily: 'ChalkboardSE-Regular',
+          fontFamily: 'Arial',
           fontWeight: '700',
           textAlign: 'center',
+          color: '#007BCA', 
+          margin: 20, 
   
         }
       

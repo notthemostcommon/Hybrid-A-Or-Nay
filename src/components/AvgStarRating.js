@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Image} from 'react-native';
-import filledStar from '../images/icons8-star-filled-50.png'; 
+import filledStar from '../images/airbnb-star-selected.png'; 
 import blankStar from '../images/airbnb-star.png'
 // need 5 stars 
 // each star will be regular outline and touchable
@@ -11,10 +11,12 @@ import blankStar from '../images/airbnb-star.png'
 // on press, set state to an array of values based on star chosen 
 // in function, map over array to display new selected stars 
 
-export default function AvgStarRating (props) {
+ const AvgStarRating = (props) => {
    
     const fas =  <Image source={require('../images/airbnb-star.png')} style={{width: 25, height: 25}} />;        
     const num = props.avgRating; 
+    // const num = 0; 
+
     const far =   <Image source={require('../images/airbnb-star-selected.png')} style={{ width: 25, height: 25 }}/>;
     const StarValues = {
         0: [fas, fas, fas, fas, fas],
@@ -39,4 +41,4 @@ export default function AvgStarRating (props) {
 
     )
   }
-
+  export default AvgStarRating; 
