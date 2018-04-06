@@ -1,10 +1,8 @@
 
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Image, ScrollView, TouchableHighlight} from 'react-native'; 
-import Header from './Header'; 
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'; 
 import _ from 'underscore'; 
 import { withRouter, Link } from '../Routing'; 
-import PropTypes from 'prop-types';
 
 
 

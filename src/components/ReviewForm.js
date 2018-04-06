@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Picker, TextInput, Button, TouchableHighlight, Text, StyleSheet} from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet} from 'react-native';
 import axios from 'axios'; 
 import StarRating from './StarRating'; 
 import { withRouter } from '../Routing'; 
@@ -26,13 +26,13 @@ class ReviewForm extends Component {
     }
     async onSubmitReview() {
     this.setState({showProgress: true, reviewError: false})
-    if (this.state.starRating == '' || this.state.review == '') {
+    if (this.state.starRating === '' || this.state.review === '') {
         this.setState({reviewError: true})
          
     } else {
 
         try {
-            let response = await axios.post('http://localhost:8080/reviews', {
+            await axios.post(process.env.REACT_APP_HOST  + '/reviews', {
                 user_id: 1, 
                 camis: this.props.location.state.results[0].camis, 
                 dba: this.props.location.state.results[0].dba, 
@@ -44,9 +44,11 @@ class ReviewForm extends Component {
                 review: this.state.review, 
                 grade: this.props.location.state.results[0].grade, 
                 category: this.props.location.state.results[0].cuisine_description
-            });
-                    this.props.history.goBack();
-
+            }).then( data => {
+                this.goBack(); 
+            }); 
+                    
+        
             } catch(error) {
                 this.setState({error: error});
                 console.log("error " + error);
@@ -63,7 +65,6 @@ class ReviewForm extends Component {
     render = (props) => {
         
         const { results } = this.props.location.state; 
-        console.log("inside review form");
         
         return (
 

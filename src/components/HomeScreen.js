@@ -4,14 +4,10 @@ import  {
   Text,
   View, 
   Image, 
-  ImageBackground,
-  ScrollView 
+  ImageBackground 
 } from 'react-native';
-import Header from './Header';
-import { Route, Link, withRouter, Redirect } from '../Routing'; 
-import Results from './Results'; 
+import { withRouter } from '../Routing'; 
 import Search from './Search'; 
-import _ from 'underscore'; 
 
 class HomeScreen extends Component {
   constructor(){
@@ -27,12 +23,10 @@ class HomeScreen extends Component {
   }
 
   getResults = (data, text) => {
-    console.log("returned text", text)
       this.setState({
         results: data, 
         text: text
       })
-      // console.log("this is state", this.state.results);
       
         this.props.history.push({
           pathname: '/locations',

@@ -1,8 +1,7 @@
 
-import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Image} from 'react-native';
-import filledStar from '../images/airbnb-star-selected.png'; 
-import blankStar from '../images/airbnb-star.png'
+import React from 'react';
+import { Text, View, Image} from 'react-native';
+
 // need 5 stars 
 // each star will be regular outline and touchable
 // on touch, star and all preceding should turn yellow 

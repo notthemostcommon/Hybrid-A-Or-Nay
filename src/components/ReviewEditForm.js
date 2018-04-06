@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Picker, TextInput, Button, TouchableHighlight, Text, StyleSheet, Image} from 'react-native';
+import { View, TextInput, Button, TouchableHighlight, Text, StyleSheet, Image} from 'react-native';
 import axios from 'axios'; 
 import StarRating from './StarRating'; 
 import { withRouter } from '../Routing'; 
@@ -30,7 +30,7 @@ class ReviewEditForm extends Component {
         console.log(  this.props.location.state.results.building, this.props.location.state.results.street);
         
         try {
-            let response = await axios.put(`http://localhost:8080/reviews/${params.id}`, {
+            await axios.put(process.env.REACT_APP_HOST + `/reviews/${params.id}`, {
                 user_id: 1, 
                 camis: this.props.location.state.results.camis, 
                 dba: this.props.location.state.results.dba, 
@@ -43,8 +43,9 @@ class ReviewEditForm extends Component {
                 grade: this.props.location.state.results.grade, 
                 category: this.props.location.state.results.category
                 
-            });
-            this.props.history.goBack();
+            }).then(response => {
+                this.goBack(); 
+            })
             
             } catch(error) {
                 this.setState({error: error});
@@ -70,7 +71,7 @@ class ReviewEditForm extends Component {
     async deleteReview() {
         this.setState({showProgress: true})
         try {
-            let response = await axios.delete(`http://localhost:8080/reviews/${this.props.location.state.results.id}`)
+            await axios.delete(process.env.REACT_APP_HOST +`/reviews/${this.props.location.state.results.id}`)
                 .then( (response) =>  {
                     this.props.history.goBack();
                     console.log(response);
@@ -85,7 +86,7 @@ class ReviewEditForm extends Component {
     }
 
     render = (props) => {
-        const { results } = this.props.location.state; 
+        // const { results } = this.props.location.state; 
         return (
 
         <View style={styles.container}>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Text, View, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, Image } from 'react-native'; 
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'; 
 import _ from 'underscore'; 
 import { withRouter } from '../Routing'; 
 
@@ -90,7 +90,7 @@ return (
             padding: 10
         }, 
         topbar: {
-            height: 30,
+            // height: 30,
             justifyContent: 'center',
             alignItems: 'center',
             padding:10,
