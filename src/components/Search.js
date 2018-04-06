@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import {  View, Text, StyleSheet, KeyboardAwareScrollView, TextInput, FlatList, List, ListItem, ListView, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
+import {  View, Text, TextInput } from 'react-native';
 import Indicator from './ActivityIndicator'; 
-import { Route } from '../Routing'; 
-import ShowLocation from './ShowLocation'; 
-import Results from './Results'; 
-
 
 export default class Search extends Component {
     constructor(){
@@ -12,8 +8,6 @@ export default class Search extends Component {
         this.state = {
             text: '', 
             loading: false,
-
-           
         }
         this.submitSearch = this.submitSearch.bind(this);
       }
@@ -26,12 +20,8 @@ export default class Search extends Component {
           return res.json();
         })
         .then (data => {
-          
           this.props.getResults(data, this.state.text); 
-        
-          
           // this.textInput.clear()
-          
         })
         .catch(err => {
           console.log(err) 
@@ -57,59 +47,7 @@ export default class Search extends Component {
               ref={input => { this.textInput = input }}           
               />
           </Text>
-          
-
-              
-
         </View>    
         );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  search: {
-    
-    
-    backgroundColor:'white', 
-    
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10
-  }, 
-  list: {
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    borderBottomColor: '#bbb',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  }, 
-  h1: {
-    fontSize: 19,
-    fontWeight: 'bold',
-  },
-  h3: {
-      fontSize: 15, 
-  }, 
-  search: {
-      flex: 1, 
-      padding: 10, 
-      height: 30,
-      marginTop: 10,
-      fontSize: 15,
-      borderWidth: 1,
-      borderColor: '#48bbec', 
-      // width: '75%',
-      alignSelf: 'center', 
-      margin: 25, 
-      color: 'black', 
-      backgroundColor: 'white',
-
-  }
-      
-  
-}); 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import HomeScreen from './components/HomeScreen'; 
-import { Router, Switch, Route, Link } from './Routing'; 
+import { Router, Switch, Route } from './Routing'; 
 import ShowLocation from './components/ShowLocation'; 
 import Results from './components/Results'; 
 import ReviewForm from './components/ReviewForm'; 

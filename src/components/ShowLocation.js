@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import {Text, TouchableHighlight, View, StyleSheet, Image, ScrollView, TouchableOpacity, Button, ImageBackground} from 'react-native';
-import Header from './Header'; 
-import Reviews from './Reviews'; 
+import {Text, View, StyleSheet, Image, ScrollView, TouchableOpacity, ImageBackground} from 'react-native';
 import axios from 'axios'; 
-import ReviewForm from './ReviewForm'; 
 import { Link, withRouter } from '../Routing'; 
 import AvgStarRating from './AvgStarRating'; 
 import _ from 'underscore'; 
-import ShowViolations from './ShowViolations';
 
 class ShowLocation extends Component {
   constructor(props) {
@@ -26,7 +22,7 @@ class ShowLocation extends Component {
   componentDidMount() {
     const { match: { params } } = this.props;
 
-      axios.get(`/reviews/location/${params.id}`)
+      axios.get(process.env.REACT_APP_HOST + `/reviews/location/${params.id}`)
       .then( data => {
           
         this.setState({
@@ -59,18 +55,16 @@ class ShowLocation extends Component {
   
   render() {
     const { results } = this.props.location.state; 
-    // console.log("this is show router props" , results    );
     const { match: { params } } = this.props;
     const getLocation = results.filter( result  => {
-           if (params.id == result.camis) {
+           if (params.id === result.camis) {
            return result 
            }
         }); 
-        const locationResults = _.sortBy(getLocation, "inspection_date")
+    const locationResults = _.sortBy(getLocation, "inspection_date")
     
-    // console.log("this is location results", locationResults);
-    const { selected } = this.state
-    const { fill, size } = this.props
+    // const { selected } = this.state
+    // const { fill, size } = this.props
     const nested = []; 
 
     results.forEach(d => {
@@ -80,8 +74,8 @@ class ShowLocation extends Component {
     function findItems(date) {
         let obj = {};
         let newData = nested.filter(d => { 
-            return d.key == date.inspection_date } )
-        if( newData.length != 0){ 
+            return d.key === date.inspection_date } )
+        if( newData.length !== 0){ 
             newData[0].values.push(date.violation_description)
         } else {
             obj.key = date.inspection_date
@@ -89,42 +83,54 @@ class ShowLocation extends Component {
             nested.push(obj)
         }
     }
-        // console.log("nested", nested)
-
-
     return (
         <ScrollView>
         <View style={{height: 110,  padding: 20,  backgroundColor:'#ADDDDD', justifyContent: 'center',flexDirection: 'row', alignItems:'center'}}>
-              <View style={{flexDirection: 'row', justifyContent:'flex-end'}}>
+              <View style={{flexDirection: 'row', justifyContent:'center'}}>
                   <TouchableOpacity 
                       onPress={() => this.props.history.goBack()}
                       style={{ flex: 1 }} >
-                      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} > 
+                      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', alignContent: 'center'}} > 
                         <Image 
                             source={require("../assets/004-arrows.png")}
-                            style={{height: 30, width: 30, top: 15, alignSelf: 'flex-start'}} 
+                            resizeMode='contain'
+                            style={{
+                              height: 30, 
+                              width: 30, 
+                              top: 15, 
+                              alignSelf: 'center',
+                              paddingLeft: 8,
+                              // width: 100,
+                              // flex: 1,
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              justifyContent: 'flex-start'}} 
                             />
-                            <View style={{height: 25, width: 65, top: 15, alignSelf: 'center'}} > 
-                                <Text style={{color: '#007BCA'}} >Results</Text>
+                            <View  > 
+                                <Text style={{color: '#007BCA', 
+                                // height: 30, width: 65, 
+                                top: 15, 
+                                // alignSelf: 'center'
+                                }} >Results</Text>
                                 </View>
                             
                         </View>
                     </ TouchableOpacity> 
                   <Text style={{ flex: 1 }} ></Text>
                   
-                  <TouchableOpacity 
+                  {/* <TouchableOpacity 
                       onPress={() => this.props.history.goBack()}
-                      style={{ flex: 1 }} >
-                      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', height: 25, width: 110, top: 15, justifyContent: 'center', alignSelf: 'center',}} > 
+                      style={{ flex: 1 }} > */}
+                      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', height: 25, width: 200, top: 15, justifyContent: 'center',}} > 
                             <Link 
-                                    // style={{ textDecoration: 'none' }}
+                                    style={{ textDecoration: 'none' }}
                                     to={{   
                                         pathname:`${results[0].dba}/violations`,
                                         state: { title: nested }
                                     }} >
-                                        <Text style={{color: '#007BCA', textDecorationLine: 'none'}} >Violations<Image 
+                                        <Text style={{color: '#007BCA', textDecorationLine: 'none', alignSelf: 'center', height: 30, width: 150 }} >Violations<Image 
                                             source={require("../assets/003-arrows-1.png")}
-                                            style={{height: 30, width: 30,  }} 
+                                            style={{height: 30, width: 30,alignSelf: 'center'  }} 
                                             />
                                              </Text>
                                         </Link>
@@ -132,7 +138,7 @@ class ShowLocation extends Component {
                         
                             
                         {/* </View> */}
-                    </ TouchableOpacity> 
+                    {/* </ TouchableOpacity>  */}
                   
                 </View>
               </View>
@@ -182,7 +188,7 @@ class ShowLocation extends Component {
          
           <View style={styles.buttonStyle}>
             <Link 
-                // style={{ textDecoration: 'none' }}
+                style={{ textDecoration: 'none' }}
                 to={{   
                     pathname:`${results[0].camis}/review`,
                     state: { results: results }
@@ -194,9 +200,8 @@ class ShowLocation extends Component {
             <View>
                     {this.state.reviews ? 
                     this.state.reviews.data.map( (data, id) => {
-                        console.log("this is mapped data", data);
                         return(
-                        <View style={styles.list}>
+                        <View style={styles.list} key={id} >
                         <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
                             <TouchableOpacity onPress={this.editReview}>
                                 <Link 
@@ -256,6 +261,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
 
         backgroundColor: '#007BCA',
+        margin: 15, 
         borderRadius: 10,
         padding: 10,
         shadowColor: '#000000',
@@ -275,6 +281,7 @@ const styles = StyleSheet.create({
         flex: 2, 
         paddingTop: 25, 
       },
+      
     
     gradeA: {
       flex: 1,
@@ -316,15 +323,7 @@ const styles = StyleSheet.create({
         padding: 5, 
         alignSelf: 'center'
       },
-    h2: {
-    flex: 1,
-    justifyContent: 'flex-start', 
-    fontSize: 25, 
-    color: "black", 
-    fontWeight: "bold", 
-    padding: 5, 
-    alignSelf: 'center'
-    },
+       
     h3: {
         fontSize: 15, 
         textAlign: 'center',
