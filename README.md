@@ -2,16 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) and [Create React Native App](https://github.com/react-community/create-react-native-app).
 
-"A or Nay" aims to make NYC Department of Health records more easily accessible to the public. There are many apps that allow people to easily access restaurants with ratings and reviews, but "A or Nay" fills a gap in the space by creating opportunities to crowd-source reviews and ratings and get valuable information like the restaurants most recent health department grade and a history of violations. 
+"A or Nay" aims to make NYC Department of Health restaurant rating records more easily accessible to the public. There are many apps that allow people to easily review restaurants, but "A or Nay" fills a gap in the space by creating opportunities to crowd-source reviews and ratings and get valuable information like the restaurants most recent health department grade and a history of health code violations. 
 
 Another goal of "A or Nay" is to create more transparency between the businesses and their customers. Excluding a letter grade posted in front of the business, most customers are not aware of the infractions that a business can get and still recieve an "A". Therefore, this app can create a positive influence over businesses to continue to elevate their safety standards. As such, seeking business advertising can help offset the costs of the app and create a stronger sense of transparency to their guests. As a future feature, the app will also provide an opportunity to business owners to address anything in their history that might concern their guests.
 
 By being available as a native app and a web app, "A or Nay" is positioned to be available to smartphone users and anyone with internet access. 
 
 ## User Experience 
-When a user accesses "A or Nay", they are immediately brought a search page where they can look up any restaurant, cafe or coffee shop in New York City. 
+When a user accesses "A or Nay," they are immediately brought to a search page where they can look up any restaurant in New York City. 
 
-Next, the user will see the results of that search and choose the location they would like to learn about. 
+Next, the user sees the results of that search and chooses the location they would like to learn about, if the restaurant has multiple locations. 
 
 When a user makes a choice, that location's information will show the basic address information and map location. Also, the location's most recent letter grade will be shown along with the current crowd-sourced average and reviews.  
 
