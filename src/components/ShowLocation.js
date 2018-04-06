@@ -10,8 +10,6 @@ class ShowLocation extends Component {
     
     super(props);
     this.state = {
-        modalVisible: false,
-        selected: false,
         reviews: '', 
         startReview: false, 
         reviewAverage: 0, 
@@ -63,8 +61,6 @@ class ShowLocation extends Component {
         }); 
     const locationResults = _.sortBy(getLocation, "inspection_date")
     
-    // const { selected } = this.state
-    // const { fill, size } = this.props
     const nested = []; 
 
     results.forEach(d => {
@@ -121,18 +117,32 @@ class ShowLocation extends Component {
                   {/* <TouchableOpacity 
                       onPress={() => this.props.history.goBack()}
                       style={{ flex: 1 }} > */}
-                      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', height: 25, width: 200, top: 15, justifyContent: 'center',}} > 
+                      <View style={{flex: 1, alignSelf: 'center', flexDirection: 'row', alignItems: 'center', height: 25, width: 200, top: 15, justifyContent: 'center',}} > 
+                    
                             <Link 
-                                    style={{ textDecoration: 'none' }}
+                                    // style={{ textDecoration: 'none' }}
                                     to={{   
                                         pathname:`${results[0].dba}/violations`,
                                         state: { title: nested }
                                     }} >
-                                        <Text style={{color: '#007BCA', textDecorationLine: 'none', alignSelf: 'center', height: 30, width: 150 }} >Violations<Image 
-                                            source={require("../assets/003-arrows-1.png")}
-                                            style={{height: 30, width: 30,alignSelf: 'center'  }} 
-                                            />
+                                    <View>
+                                        <Text style={{color: '#007BCA', textDecorationLine: 'none', width: 120, top: 15, alignSelf: 'flex-end', }} >Violations
                                              </Text>
+                                        <Image 
+                                            source={require("../assets/003-arrows-1.png")}
+                                            resizeMode="contain"
+                                            style={{
+                                                height: 30, 
+                                                width: 30,
+                                                bottom: 12, 
+                                                alignSelf: 'flex-end',
+                                            // width: 100,
+                                            // flex: 1,
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                justifyContent: 'center' }} 
+                                            />
+                                            </View>
                                         </Link>
                                 </View>
                         

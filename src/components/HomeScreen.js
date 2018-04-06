@@ -50,15 +50,21 @@ class HomeScreen extends Component {
 
                   <Text style={{flex: 1, width: '80%', marginTop: 50, borderRadius: 15}}> <Search getResults={this.getResults}/>
                      
-                    </Text>
-                    <Image 
-                      style={styles.icon}
-                      resizeMode="cover"
-                      source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>   
-                       <Text style={{alignSelf: 'flex-start'}}>
-                        <Text style={styles.text}> Discover Your Favorite Restaurants</Text>
-                        <Text style={styles.italics} > And What You Never Wanted to Know</Text>
-                      </Text>
+                  </Text>
+                    <View style={styles.wrapper} > 
+                      <Image 
+                        style={styles.logo}
+                        resizeMode="cover"
+                        source={require('../assets/A-or-Nay-outlines_Transparent8.png')}/>   
+                                            </View>
+
+                        <Text style={{alignSelf: 'center', top: -150}}>
+                          <Text style={styles.quote}> Discover Your Favorite Restaurants</Text>
+                          <Text>                    </Text>
+                          <Text style={styles.italics} > And What You Never Wanted to Know</Text>
+                        </Text>
+
+                   
                   
               
                 
@@ -73,18 +79,31 @@ class HomeScreen extends Component {
   
     const styles = StyleSheet.create({
       
-      icon: {
+      logo: {
         flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center',
         alignSelf: 'center', 
+        alignContent: 'center',
         width: 500, 
         height: 500, 
-        top: -200
+        
         
       },
+      wrapper: {
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        alignSelf: 'center', 
+        alignContent: 'center',
+        top: -200, 
+      }, 
 
-        text: {
-          fontSize: 20,
-          paddingTop: 20, 
+        quote: {
+          fontSize:17,
+          paddingTop: 20,
+          flex: 1, 
+          // alignSelf: 'center',
           fontFamily: 'Arial',
           fontWeight: '700',
           textAlign: 'center',
@@ -94,8 +113,7 @@ class HomeScreen extends Component {
       }, 
       
         italics: {
-          fontSize: 20,
-          marginBottom: 15, 
+          fontSize: 17,
           fontFamily: 'Arial',
           fontWeight: '700',
           textAlign: 'center',

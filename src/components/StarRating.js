@@ -11,8 +11,6 @@ import { View, TouchableOpacity, Image} from 'react-native';
 // in function, map over array to display new selected stars 
 
 const StarRating = (props)  => {
-    
-  
     const fas =  <Image source={require('../images/airbnb-star.png')} style={{width: 60, height: 60, marginTop: 30, marginBottom: 30}} />;        
     const num = props.starRating; 
     const far =   <Image source={require('../images/airbnb-star-selected.png')} style={{ width: 60, height: 60, marginTop: 30, marginBottom: 30}}/>;
@@ -27,16 +25,10 @@ const StarRating = (props)  => {
     return (
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 { StarValues[num].map ( (rating, i) => {
-                    
-                    
                     return(
-                    
                     <TouchableOpacity
                         key={ i + 1 } 
-                        onPress={() => props.getStarRating(i+1)}>
-                       
-                            {rating} 
-                    </TouchableOpacity> 
+                        onPress={() => props.getStarRating(i+1)}> {rating} </TouchableOpacity> 
                     )
                 })
              }
